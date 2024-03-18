@@ -39,7 +39,7 @@ const getChats = async (signer) => {
 	/** Get Group Info */
 	const user = await initUser(signer);
 	const groupInfo = await user.chat.group.info(
-		"c619cd4b542c5012b48b89bf64198700e8ea1ea64e9eef8b8026017852a7aee5"
+		"561930b51e5e2e60b43131a24bbb82af6d9e2b8cd45ce79f1729095f625ad1b6"
 	);
 	// const chatList = await user.chat.list("CHATS");
 	return groupInfo;
