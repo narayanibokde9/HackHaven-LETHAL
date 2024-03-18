@@ -56,6 +56,7 @@ contract Contract is AccessControl {
 
     struct Issue {
         uint256 issueId;
+        uint256 chatId;
         string title;
         string[] tags;
         string message;
@@ -76,19 +77,22 @@ contract Contract is AccessControl {
         string location;
     }
 
-    // Images attribute left
     struct Update {
         uint256 updateId;
         uint256 issueId;
+        address walletAddress;
         string title;
         string message;
+        string[] images;
+        uint256 dateOfUpdation;
     }
 
     struct Feedback {
         uint256 feedbackId;
         uint256 issueId;
-        string updateId;
+        uint256 updateId;
         uint256 scale;
+        string message;
     }
 
     // Mappings
@@ -97,13 +101,11 @@ contract Contract is AccessControl {
     mapping(uint256 => Issue) issues;
     mapping(uint256 => bool) public tokenLockedUp;
     mapping(uint256 => Resident[]) voters;
+    mapping(uint256 => Update) updates;
+    mapping(uint256 => Feedback) feedbacks;
     mapping(uint256 => Employee[]) issueEmployees;
-    // Mappings Left
-    // All Issues Posted by a Resident
-    // All Feedbacks Posted by a Resident
-    // All Updates About an Issue from the Government
-    // All Feedbacks about an Update from the Government about an Issue
-    // Message to Wallet Id
+    mapping(uint256 => Update[]) issueUpdates;
+    mapping(uint256 => Feedback[]) updateFeedbacks;
 
     // Events
     event AddedResident(
@@ -135,10 +137,24 @@ contract Contract is AccessControl {
         uint256 upvotes
     );
 
+    event PostedUpdate(
+        uint256 issueId,
+        string message
+    );
+
+    event PostedFeedback(
+        uint256 issueId, 
+        uint256 updateId, 
+        uint256 scale, 
+        string message
+    );
+
     // Variables
     uint256 private residentCounter;
     uint256 private employeeCounter;
     uint256 public issueCounter;
+    uint256 private updateCounter;
+    uint256 private feedbackCounter;
     uint256 public totalVotingPower;
 
     // Modifiers
@@ -223,14 +239,17 @@ contract Contract is AccessControl {
 
     // Raise an Issue
     function raiseIssue(
+        uint256 _chatId,
         string memory _title,
         string[] memory _tags,
         string memory _message,
         string memory _location,
         string[] memory _images
     ) external memberOnly{
+        require(hasRole(RESIDENT_ROLE, msg.sender), "Only Residents can Post Issues");
         issues[issueCounter] = Issue(
             issueCounter,
+            _chatId, 
             _title,
             _tags,
             _message,
@@ -249,6 +268,7 @@ contract Contract is AccessControl {
     function vote(
         uint256 _issueId
     ) external memberOnly{
+        require(hasRole(RESIDENT_ROLE, msg.sender), "Only Residents can Vote on Issues");
         Issue storage issue = issues[_issueId];
         require(issue.deadline > block.timestamp, "INACTIVE_PROPOSAL");
         // Double voting prevention require left
@@ -258,6 +278,42 @@ contract Contract is AccessControl {
         issue.upvotes += votingPower;
         
         emit UpvotedAnIssue(_issueId, issue.upvotes);
+    }
+
+    // Employees can post an Update on an Issue
+    function postUpdate(
+        uint256 _issueId,
+        string memory _title,
+        string memory _message,
+        string[] memory _images
+    ) external memberOnly{
+        require(hasRole(EMPLOYEE_ROLE, msg.sender), "Only Employees can Post Updates");
+        updates[updateCounter] = Update(
+            updateCounter,
+            _issueId,
+            msg.sender,
+            _title, 
+            _message, 
+            _images,
+            block.timestamp
+        );
+        issueUpdates[_issueId].push(updates[updateCounter]);
+        updateCounter++;
+        emit PostedUpdate(_issueId, _title);
+    }
+
+    // Residents can provide Feedbacks on an Issue
+    function giveFeedback(
+        uint256 _issueId,
+        uint256 _updateId,
+        uint256 _scale, 
+        string memory _message
+    ) external memberOnly{
+        require(hasRole(RESIDENT_ROLE, msg.sender), "Only Residents can Give Feedback on Issues");
+        feedbacks[feedbackCounter] = Feedback(feedbackCounter, _issueId, _updateId, _scale, _message);
+        updateFeedbacks[feedbackCounter].push(feedbacks[feedbackCounter]);
+        feedbackCounter++;
+        emit PostedFeedback(_issueId, _updateId, _scale, _message);
     }
 
 }
