@@ -3,7 +3,6 @@ import { PushAPI, CONSTANTS } from "@pushprotocol/restapi";
 import useEthersSigner from "@/hooks/useEthersSigner";
 import { useAccount } from "wagmi";
 import { useState } from "react";
-import { PushChatComponent } from "@/components/PushChatComponent";
 
 const initUser = async (signer) => {
 	const user = await PushAPI.initialize(signer, {
@@ -13,29 +12,6 @@ const initUser = async (signer) => {
 	console.log("no", response);
 	return user;
 };
-const createGroup = async (signer) => {
-	const user = await initUser(signer);
-	const groupName = "Example Group";
-	const groupDescription = "This is an example group.";
-	const groupImage = "data:image/png;base64,iVBORw0K..."; // example base64 encoded image string
-	const walletAddress1 = "0x6a0B3538d8ab0d40A9d49769384e57847Bbe763c";
-	const walletAddress2 = "0xba74dc8AC37A833c316b2d705d7FB37b843A9caF";
-	// const walletAddress3 = "0xb422822d8a526816E06330Fd2495bee348fD9Eb9";
-
-	const newGroup = await user.chat.group.create(groupName, {
-		description: groupDescription,
-		image: groupImage,
-		members: [walletAddress2],
-		admins: [],
-		private: false,
-		rules: {
-			entry: { conditions: [] },
-			chat: { conditions: [] },
-		},
-	});
-	return newGroup;
-};
-
 const fetchChats = async (signer) => {
 	// console.log("Sig", signer);
 	const user = await initUser(signer);
@@ -66,16 +42,15 @@ const joinGroup = async (signer) => {
 	return joinGroup;
 };
 
-const getChats = async (signer) => {
+const getChats = async (signer, chatId) => {
 	/** Get Group Info */
 	const user = await initUser(signer);
-	const groupInfo = await user.chat.group.info(
-		"87e029ad9825b78b871710daf12b9700b845b7c39ef1c447304a3d89defc525d"
-	);
+	const groupInfo = await user.chat.group.info(chatId);
 	return groupInfo;
 };
 
-function GroupChat() {
+function GroupChat({ params }) {
+	const chatId = params.chatId;
 	const account = useAccount();
 	const signer = useEthersSigner({ chainId: account.chainId });
 
@@ -83,35 +58,28 @@ function GroupChat() {
 	const [chatList, setChatList] = useState(null);
 	return (
 		<>
+			{/* {chat && <ChatHeader chatname={chat.groupName} />} */}
 			<button
 				onClick={async () => {
-					const res = await createGroup(signer);
+					const res = await getChats(signer, chatId);
 					setChat(res);
+					console.log("grp info", res);
+					console.log(res.groupName);
 				}}
 			>
-				Create Group
+				Get Group Info
 			</button>
 			<br />
-			<button
+			{/* <button
 				onClick={async () => {
-					const res = await getChats(signer);
-					setChat(res);
-					console.log("list", res);
-				}}
-			>
-				Get Groups
-			</button>
-			<br />
-			<button
-				onClick={async () => {
-					const res = await fetchChats(signer);
+					const res = await fetchChats(signer, chatId);
 					// setChatList(res);
 					console.log(res);
 				}}
 			>
 				Get Chats
 			</button>
-			<br />
+			<br /> */}
 			<button
 				onClick={async () => {
 					const res = await sendMessage(signer);
@@ -130,10 +98,17 @@ function GroupChat() {
 			>
 				Join group
 			</button>
-			{chat && (
-				<PushChatComponent chat={chat} signer={signer} account={account} />
-			)}
 		</>
 	);
 }
+
+const ChatHeader = ({ chatName }) => {
+	return (
+		<div className="bg-blue-200 p-4 flex justify-between items-center">
+			<div className="text-black text-lg font-semibold">{chatName}</div>
+			{/* Add any additional buttons or elements on the right side if needed */}
+		</div>
+	);
+};
+
 export default GroupChat;
