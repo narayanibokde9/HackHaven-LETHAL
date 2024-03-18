@@ -7,15 +7,6 @@ import updates from "../app/(resident)/issuelist/update.json";
 
 const UpdateIssueStatus = ({ title, message, images, upvotes, id, tags }) => {
 	const filteredUpdates = updates.filter((update) => update.issueId === id);
-
-	// Group filtered updates by issueId
-	const groupedUpdates = filteredUpdates.reduce((acc, update) => {
-		if (!acc[update.issueId]) {
-			acc[update.issueId] = [];
-		}
-		acc[update.issueId].push(update);
-		return acc;
-	}, {});
 	console.log(filteredUpdates);
 	return (
 		<div className="grid items-stretch grid-cols-2 gap-4 place-content-evenly">
@@ -103,7 +94,8 @@ const UpdateIssueStatus = ({ title, message, images, upvotes, id, tags }) => {
 		</div>
 	);
 };
-const TimelineItem = ({ update }) => {
+
+export const TimelineItem = ({ update }) => {
 	// Extracting year and event from the update data
 	const year = new Date(update.time).toLocaleString();
 	const event = update.title;
@@ -111,30 +103,30 @@ const TimelineItem = ({ update }) => {
 	console.log(update);
 	return (
 		<li>
-			<div className="collapse">
-				{/* <div className="text-xl font-medium">Click me to show/hide content</div> */}
-
-				<div className="timeline-start">{year}</div>
-				<div className="timeline-middle">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 20 20"
-						fill="currentColor"
-						className="w-5 h-5"
-					>
-						<path
-							fillRule="evenodd"
-							// d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-							clipRule="evenodd"
-						/>
-					</svg>
-				</div>
-				<input type="checkbox" />
-				<div className="collapse-title timeline-end timeline-box">{event}</div>
-				<div className="collapse-content">
-					<p>{update.message}</p>
-				</div>
+			<div className="timeline-start">{year}</div>
+			<div className="timeline-middle">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 20 20"
+					fill="currentColor"
+					className="w-5 h-5"
+				>
+					<path
+						fillRule="evenodd"
+						d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+						clipRule="evenodd"
+					/>
+				</svg>
 			</div>
+			<div
+				className="timeline-end timeline-box tooltip tooltip-left md:tooltip-bottom bg-blue-200"
+				data-tip={update.message}
+			>
+				{event}
+			</div>
+			{/* <div className="tooltip" data-tip="hello">
+				<button className="btn">Hover me</button>
+			</div> */}
 			<hr />
 		</li>
 	);
