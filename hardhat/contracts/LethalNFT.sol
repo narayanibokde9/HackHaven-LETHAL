@@ -17,9 +17,10 @@ contract LethalNFT is ERC721Enumerable, Ownable {
         MAX_NFTS = maxNfts;
     }
 
-    function freeMint() public {
+    function freeMint(address caller) public returns (uint256){
         require(tokenIdCounter < MAX_NFTS, "MAX_SUPPLY_REACHED");
         tokenIdCounter++;
-        _safeMint(msg.sender, tokenIdCounter);
+        _safeMint(caller, tokenIdCounter);
+        return totalSupply();
     }
 }
