@@ -4,7 +4,7 @@ import { BiUpvote } from "react-icons/bi";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 import { GrStatusUnknown } from "react-icons/gr";
 
-const IssueStatus = ({ title, message, images, upvotes, id, tags }) => {
+const UpdateIssueStatus = ({ title, message, images, upvotes, id, tags }) => {
 	console.log(images);
 	return (
 		<div className="grid items-stretch grid-cols-2 gap-4 place-content-evenly">
@@ -105,4 +105,4 @@ const TimelineItem = ({ year, event }) => {
 	);
 };
 
-export default IssueStatus;
+export default UpdateIssueStatus;

@@ -104,6 +104,15 @@ const IssueComponent = ({ title, message, imageUrl, upvotes, id, tags }) => {
 								</span>
 							</div>
 						</Link>
+						<Link href={`/updateissue/${id}`} className="text-gray-600">
+							<div className="btn flex items-center">
+								<GrStatusUnknown className="h-6 w-6" />
+								<span className="text-gray-600 pl-2 hidden sm:block">
+									Take up task{" "}
+									{/*Add a controller to add this employee to the list of employees that have taken up the task for this issue */}
+								</span>
+							</div>
+						</Link>
 						{/* </div> */}
 					</div>
 				</div>
