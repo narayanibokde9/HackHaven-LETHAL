@@ -50,6 +50,16 @@ describe("Contract Test", function () {
         await expect(contract.connect(addr2).voteOnGrievance(0)).to.emit(contract, "UpvotedAGrievance").withArgs(0, 2, 1);
     })
 
+    it("Should Fetch All Grievances", async function(){
+        const name1 = "John Doe", age1 = 18, email1 = "johndoe@gmail.com", location1 = "Thane";
+        await expect(contract.connect(addr1).addResident(name1, age1, email1, location1)).to.emit(contract, "AddedResident").withArgs(addr1, name1, email1, location1);
+        await expect(contract.connect(addr1).addToDAO()).to.emit(contract, "AddedToDAO").withArgs(addr1, 1);
+        await expect(contract.connect(addr1).raiseGrievance(1, "ABC", ["ab", "cd"], "Message", "Location1", ["img1", "img2"])).to.emit(contract, "RaisedGrievance").withArgs("ABC", "Message");
+        await expect(contract.connect(addr1).raiseGrievance(1, "ABC", ["ab", "cd"], "Message", "Location2", ["img1", "img2"])).to.emit(contract, "RaisedGrievance").withArgs("ABC", "Message");
+        const grievances = await contract.connect(addr1).getAllGrievances();
+        expect(grievances.length).to.equal(2);
+    })
+
     it("Should Add an Update on an Issue", async function(){
         const name1 = "John Doe", age1 = 18, email1 = "johndoe@gmail.com", location1 = "Thane";
         const name2 = "Jack Doe", age2 = 19, email2 = "jackdoe@gmail.com", location2 = "Mumbai";

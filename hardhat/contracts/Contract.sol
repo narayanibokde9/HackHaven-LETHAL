@@ -65,7 +65,7 @@ contract Contract is AccessControl {
         address walletAddress;
         uint256 deadline;
         uint256 upvotes;
-        bool isOpen;
+        bool convertedToIssue;
     }
 
     struct Issue {
@@ -115,7 +115,8 @@ contract Contract is AccessControl {
     mapping(uint256 => Grievance) grievances;
     mapping(uint256 => Issue) issues;
     mapping(uint256 => bool) public tokenLockedUp;    
-    mapping(uint256 => Resident[]) voters;
+    mapping(uint256 => Resident[]) grievanceVoters;
+    mapping(uint256 => Resident[]) issueVoters;
     mapping(uint256 => Update) updates;
     mapping(uint256 => Feedback) feedbacks;
     mapping(uint256 => Employee[]) grievanceEmployees;
@@ -282,10 +283,21 @@ contract Contract is AccessControl {
             msg.sender,
             block.timestamp + 5 minutes,
             0,
-            true
+            false
         );  
         grievancesCounter++;
         emit RaisedGrievance(_title, _message);
+    }
+
+    // Fetch all Grievances yet to be Converted to Issues
+    function getAllGrievances() external memberOnly view returns(Grievance[] memory){
+        Grievance[] memory allGrievances = new Grievance[](grievancesCounter);
+        uint256 counter;
+        for(uint256 i = 0; i < grievancesCounter; i++){
+            if(!grievances[i].convertedToIssue)
+                allGrievances[counter++] = grievances[i];
+        }
+        return allGrievances;
     }
 
     // Vote on a Grievance
@@ -295,7 +307,12 @@ contract Contract is AccessControl {
         require(hasRole(RESIDENT_ROLE, msg.sender), "Only Residents can Vote on Grievances");
         Grievance storage grievance = grievances[_grievanceId];
         require(grievance.deadline > block.timestamp, "INACTIVE_GRIEVANCE");
-        // Double Voting prevention left
+        
+        // Double Voting Prevention 
+        Resident[] memory voters = grievanceVoters[_grievanceId];
+        for(uint256 i = 0; i < voters.length; i++){
+            require(voters[i].walletAddress == msg.sender, "DOUBLE_VOTING_NOT_ALLOWED");
+        }
 
         Resident storage resident = residents[msg.sender];
         uint256 votingPower = resident.lockedUpNFTs.length;
@@ -316,9 +333,24 @@ contract Contract is AccessControl {
             true
             );
             issueCounter++;
+            grievance.convertedToIssue = true;
         }
 
+        Resident memory voter = residents[msg.sender];
+        grievanceVoters[grievancesCounter].push(voter);
+
         emit UpvotedAGrievance(_grievanceId, grievance.upvotes, issueCounter);
+    }
+
+    // Fetch all Unresolved Issues
+    function getAllIssues() external memberOnly view returns(Issue[] memory){
+        Issue[] memory allIssues = new Issue[](issueCounter);
+        uint256 counter;
+        for(uint256 i = 0; i < issueCounter; i++){
+            if(issues[i].isOpen)
+                allIssues[counter++] = issues[i];
+        }
+        return allIssues;
     }
 
     // Upvote an Issue
@@ -328,7 +360,12 @@ contract Contract is AccessControl {
         require(hasRole(RESIDENT_ROLE, msg.sender), "Only Residents can Vote on Issues");
         Issue storage issue = issues[_issueId];
         require(issue.deadline > block.timestamp, "INACTIVE_PROPOSAL");
-        // Double voting prevention require left
+        
+        // Double Voting Prevention 
+        Resident[] memory voters = issueVoters[_issueId];
+        for(uint256 i = 0; i < voters.length; i++){
+            require(voters[i].walletAddress == msg.sender, "DOUBLE_VOTING_NOT_ALLOWED");
+        }
 
         Resident storage resident = residents[msg.sender];
         uint256 votingPower = resident.lockedUpNFTs.length;
@@ -337,6 +374,9 @@ contract Contract is AccessControl {
         if(issue.upvotes > uint256(75) * totalVotingPower / 100){
             issue.isOpen = false;
         }
+
+        Resident memory voter = residents[msg.sender];
+        issueVoters[issueCounter].push(voter);
         
         emit UpvotedAnIssue(_issueId, issue.upvotes);
     }
