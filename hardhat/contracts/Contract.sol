@@ -54,6 +54,20 @@ contract Contract is AccessControl {
         uint256[] lockedUpNFTs;
     }
 
+    struct Grievance {
+        uint256 grievanceId;
+        uint256 chatId;
+        string title;
+        string[] tags;
+        string message;
+        string location;
+        string[] images;
+        address walletAddress;
+        uint256 deadline;
+        uint256 upvotes;
+        bool isOpen;
+    }
+
     struct Issue {
         uint256 issueId;
         uint256 chatId;
@@ -98,12 +112,13 @@ contract Contract is AccessControl {
     // Mappings
     mapping(address => Resident) residents;
     mapping(address => Employee) employees;
+    mapping(uint256 => Grievance) grievances;
     mapping(uint256 => Issue) issues;
-    mapping(uint256 => bool) public tokenLockedUp;
+    mapping(uint256 => bool) public tokenLockedUp;    
     mapping(uint256 => Resident[]) voters;
     mapping(uint256 => Update) updates;
     mapping(uint256 => Feedback) feedbacks;
-    mapping(uint256 => Employee[]) issueEmployees;
+    mapping(uint256 => Employee[]) grievanceEmployees;
     mapping(uint256 => Update[]) issueUpdates;
     mapping(uint256 => Feedback[]) updateFeedbacks;
 
@@ -127,7 +142,7 @@ contract Contract is AccessControl {
         uint256 tokenId
     );
 
-    event RaisedIssue(
+    event RaisedGrievance(
         string title,
         string message
     );
@@ -142,6 +157,12 @@ contract Contract is AccessControl {
         string message
     );
 
+    event UpvotedAGrievance(
+        uint256 grievanceId, 
+        uint256 upvotes, 
+        uint256 issueId        
+    );
+
     event PostedFeedback(
         uint256 issueId, 
         uint256 updateId, 
@@ -152,6 +173,7 @@ contract Contract is AccessControl {
     // Variables
     uint256 private residentCounter;
     uint256 private employeeCounter;
+    uint256 public grievancesCounter;
     uint256 public issueCounter;
     uint256 private updateCounter;
     uint256 private feedbackCounter;
@@ -231,14 +253,16 @@ contract Contract is AccessControl {
         require(tokenLockedUp[tokenId] == false, "ALREADY_USED");
 
         tokenLockedUp[tokenId] = true;
-        totalVotingPower++;
+        if(hasRole(RESIDENT_ROLE, msg.sender)){
+            totalVotingPower++;
+        }
         residents[msg.sender].lockedUpNFTs.push(tokenId);
 
         emit AddedToDAO(msg.sender, tokenId);
     }
 
-    // Raise an Issue
-    function raiseIssue(
+    // Raise a Grievance
+    function raiseGrievance(
         uint256 _chatId,
         string memory _title,
         string[] memory _tags,
@@ -246,9 +270,9 @@ contract Contract is AccessControl {
         string memory _location,
         string[] memory _images
     ) external memberOnly{
-        require(hasRole(RESIDENT_ROLE, msg.sender), "Only Residents can Post Issues");
-        issues[issueCounter] = Issue(
-            issueCounter,
+        require(hasRole(RESIDENT_ROLE, msg.sender), "Only Residents can Post Grievances");
+        grievances[grievancesCounter] = Grievance(
+            grievancesCounter,
             _chatId, 
             _title,
             _tags,
@@ -256,16 +280,49 @@ contract Contract is AccessControl {
             _location, 
             _images, 
             msg.sender,
-            block.timestamp + 2 minutes,
+            block.timestamp + 5 minutes,
             0,
             true
         );  
-        issueCounter++;
-        emit RaisedIssue(_title, _message);
+        grievancesCounter++;
+        emit RaisedGrievance(_title, _message);
     }
 
-    // Upvote or Downvote an Issue
-    function vote(
+    // Vote on a Grievance
+    function voteOnGrievance(
+        uint256 _grievanceId
+    ) external memberOnly{
+        require(hasRole(RESIDENT_ROLE, msg.sender), "Only Residents can Vote on Grievances");
+        Grievance storage grievance = grievances[_grievanceId];
+        require(grievance.deadline > block.timestamp, "INACTIVE_GRIEVANCE");
+        // Double Voting prevention left
+
+        Resident storage resident = residents[msg.sender];
+        uint256 votingPower = resident.lockedUpNFTs.length;
+        grievance.upvotes += votingPower;
+
+        if(grievance.upvotes > uint256(30) * totalVotingPower / 100){
+            issues[issueCounter] = Issue(
+            issueCounter,
+            grievance.chatId, 
+            grievance.title,
+            grievance.tags,
+            grievance.message,
+            grievance.location, 
+            grievance.images, 
+            grievance.walletAddress,
+            block.timestamp + 5 minutes,
+            0,
+            true
+            );
+            issueCounter++;
+        }
+
+        emit UpvotedAGrievance(_grievanceId, grievance.upvotes, issueCounter);
+    }
+
+    // Upvote an Issue
+    function voteOnIssue(
         uint256 _issueId
     ) external memberOnly{
         require(hasRole(RESIDENT_ROLE, msg.sender), "Only Residents can Vote on Issues");
@@ -276,6 +333,10 @@ contract Contract is AccessControl {
         Resident storage resident = residents[msg.sender];
         uint256 votingPower = resident.lockedUpNFTs.length;
         issue.upvotes += votingPower;
+
+        if(issue.upvotes > uint256(75) * totalVotingPower / 100){
+            issue.isOpen = false;
+        }
         
         emit UpvotedAnIssue(_issueId, issue.upvotes);
     }
