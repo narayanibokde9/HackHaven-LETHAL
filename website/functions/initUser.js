@@ -5,6 +5,6 @@ export const initUser = async (signer) => {
 		env: CONSTANTS.ENV.STAGING,
 	});
 	const response = await user.info();
-	console.log("no", response);
+	console.log("initUser() ", response);
 	return user;
 };
