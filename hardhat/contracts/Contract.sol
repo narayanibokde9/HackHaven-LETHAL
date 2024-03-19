@@ -339,8 +339,6 @@ contract Contract is AccessControl {
 
         Resident memory voter = residents[msg.sender];
         grievanceVoters[grievancesCounter].push(voter);
-        Resident memory voter = residents[msg.sender];
-        grievanceVoters[grievancesCounter].push(voter);
 
         emit UpvotedAGrievance(_grievanceId, grievance.upvotes, issueCounter);
     }
