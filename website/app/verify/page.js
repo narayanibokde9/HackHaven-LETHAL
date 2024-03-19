@@ -21,7 +21,7 @@ function Verify() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (userType === "res") {
-            createPolyRecord("Resident", account, [
+            createPolyRecord(account, [
                 account.address,
                 name,
                 email,
@@ -29,7 +29,7 @@ function Verify() {
                 age,
             ]);
         } else {
-            createPolyRecord("Employee", account, [
+            createPolyRecord(account, [
                 account.address,
                 name,
                 email,
@@ -260,6 +260,23 @@ function Verify() {
                         </div>
                     </div>
                 </div>
+            )}
+            {!user && (
+                <button
+                    className='w-full mt-10 rounded-2xl flex items-center justify-center'
+                    size='lg'
+                    onClick={async () => {
+                        const user = await initUser(signer);
+                        if (user) {
+                            if (!user.readMode) {
+                                console.log(user.readMode);
+                                dispatch(setUser(user));
+                            }
+                        }
+                    }}
+                >
+                    Initiate Push{" "}
+                </button>
             )}
         </>
     );
