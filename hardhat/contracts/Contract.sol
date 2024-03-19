@@ -57,7 +57,7 @@ contract Contract is AccessControl {
 
     struct Grievance {
         uint256 grievanceId;
-        uint256 chatId;
+        string chatId;
         string title;
         string[] tags;
         string message;
@@ -71,7 +71,7 @@ contract Contract is AccessControl {
 
     struct Issue {
         uint256 issueId;
-        uint256 chatId;
+        string chatId;
         string title;
         string[] tags;
         string message;
@@ -253,7 +253,7 @@ contract Contract is AccessControl {
 
     // Raise a Grievance
     function raiseGrievance(
-        uint256 _chatId,
+        string memory _chatId,
         string memory _title,
         string[] memory _tags,
         string memory _message,
