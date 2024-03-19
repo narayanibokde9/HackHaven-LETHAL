@@ -130,9 +130,9 @@ function GroupChat() {
 			>
 				Join group
 			</button>
-			{chat && (
+			{/* {chat && (
 				<PushChatComponent chat={chat} signer={signer} account={account} />
-			)}
+			)} */}
 		</>
 	);
 }
