@@ -53,9 +53,9 @@ const fetchNotifications = async (user) => {
 
 const sendNotification = async (user) => {
 	const sendNotifRes = await user.channel.send(["*"], {
-		notification: { title: "test", body: "test" },
+		notification: { title: "test notif", body: "test" },
 	});
-	console.log("sent", sendNotifRes)
+	console.log("sent", sendNotifRes);
 	return sendNotifRes;
 };
 
@@ -151,9 +151,7 @@ function page() {
 			<br />
 			<button
 				onClick={async () => {
-					const res = await sendNotification(
-						user
-					);
+					const res = await sendNotification(user);
 				}}
 			>
 				Send Notifs

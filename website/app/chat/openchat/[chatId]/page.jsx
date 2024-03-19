@@ -42,6 +42,29 @@ const joinGroup = async (user) => {
 	return joinGroup;
 };
 
+//CHANNEL NOTIFICATIONS
+const fetchNotifications = async (user) => {
+	// userAlice.notification.list(type, {options?})
+	const inboxNotifications = await user.notification.list("INBOX");
+	console.log("fetch notifs", inboxNotifications);
+	return inboxNotifications;
+};
+
+const sendNotification = async (user) => {
+	const sendNotifRes = await user.channel.send(["*"], {
+		notification: { title: "test", body: "test" },
+	});
+	console.log("sent", sendNotifRes);
+	return sendNotifRes;
+};
+
+const fetchSubs = async (user) => {
+	// userAlice.notification.subscriptions({options?})
+	const subChannels = await user.notification.subscriptions();
+
+	return subChannels;
+};
+
 const GroupChat = ({ params }) => {
 	const chatId = params.chatId;
 
@@ -53,7 +76,8 @@ const GroupChat = ({ params }) => {
 
 	const signer = useEthersSigner({ chainId: account.chainId });
 	const user = useSelector((state) => state.push.user);
-	// console.log("From Redux", user.chat.account);
+
+	const [notifications, setNotifications] = useState([]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -75,11 +99,28 @@ const GroupChat = ({ params }) => {
 						setChat(groupInfo);
 					}
 
-					// Fetch chat history immediately after setting the chat
-					const history = await user.chat.history(chatId);
-					if (isMounted) {
-						setHistory(history);
-					}
+					const fetchChatHistoryData = async () => {
+						try {
+							const chatHistory = await fetchChatHistory(chatId, user);
+							setHistory(chatHistory);
+						} catch (error) {
+							console.error("Error fetching chat history:", error);
+						}
+					};
+
+					fetchChatHistoryData();
+					const fetchNotifications = async () => {
+						try {
+							// Assuming user.notification.list returns an array of notifications
+							const inboxNotifications = await user.notification.list("INBOX");
+							setNotifications(inboxNotifications);
+						} catch (error) {
+							console.error("Error fetching notifications:", error);
+						}
+					};
+
+					fetchNotifications();
+					console.log("notif", notifications);
 				}
 			} catch (error) {
 				console.error("Error fetching data:", error);
@@ -123,20 +164,42 @@ const GroupChat = ({ params }) => {
 		const res = await fetchChatHistory(chatId, user);
 		setHistory(res);
 	};
+
+	const handleFetchNotif = async () => {
+		if (!user) return;
+
+		const res = await fetchNotifications(user);
+		setNotifications(res);
+	};
 	const [message, setMessage] = useState("");
 
 	return (
-		<div className="">
-			<div className="grid grid-cols-2 items-stretch">
-				<div className="flex flex-col gap-4 w-52">
-					<div className="skeleton h-32 w-full"></div>
-					<div className="skeleton h-4 w-28"></div>
-					<div className="skeleton h-4 w-full"></div>
-					<div className="skeleton h-4 w-full"></div>
+		<div className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
+			<div className="grid grid-cols-2 items-stretch backdrop-blur-2xl ">
+				<div className="flex flex-col">
+					<div className="bg-blue-200 p-4 flex justify-between items-center shadow-xl border-blue-500">
+						<div className="text-black text-lg font-semibold">
+							Notifications
+						</div>
+					</div>
+					<div className=" ">
+						<button className="btn m-2" onClick={handleFetchNotif}>
+							Fetch Notifs
+						</button>
+						<div className="m-4 flex flex-col gap-2">
+							{notifications &&
+								notifications.map((notification, index) => (
+									<NotificationComponent
+										key={index}
+										notification={notification}
+									/>
+								))}
+						</div>
+					</div>
 				</div>
-				<div>
+				<div className="border border-white border-l-4">
 					{chat && <ChatHeader chat={chat} />}
-					<div className="border bg-gray-200 shadow-2xl">
+					<div className=" bg-gray-200 shadow-2xl">
 						<button className="btn btn-info m-2" onClick={fetchChats}>
 							Fetch Chats
 						</button>
@@ -147,25 +210,27 @@ const GroupChat = ({ params }) => {
 							Fetch History
 						</button>
 					</div>
-					<div className="chat-history-container bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
-						{history.length > 0 && (
-							<ChatHistory user={user} messages={history} />
-						)}
-					</div>
-					<div className="flex items-center border border-gray-300 rounded-md p-2">
-						<input
-							type="text"
-							placeholder="Type your message..."
-							value={message}
-							onChange={handleMessageChange}
-							className="flex-grow outline-none px-2 py-1"
-						/>
-						<button
-							onClick={sendMessageText}
-							className="ml-2 bg-blue-500 text-white font-semibold px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
-						>
-							Send
-						</button>
+					<div className="">
+						<div className="chat-history-container bg-cyan-500">
+							{history.length > 0 && (
+								<ChatHistory user={user} messages={history} />
+							)}
+						</div>
+						<div className="flex items-center border bg-white p-2">
+							<input
+								type="text"
+								placeholder="Type your message..."
+								value={message}
+								onChange={handleMessageChange}
+								className="flex-grow outline-none px-2 py-1"
+							/>
+							<button
+								onClick={sendMessageText}
+								className="ml-2 bg-blue-500 text-white font-semibold px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
+							>
+								Send
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -208,7 +273,7 @@ const ChatHistory = ({ user, messages }) => {
 					<div className="flex flex-col gap-2">
 						<div
 							key={index}
-							className={`chat text-gray-300 ${
+							className={`chat text-gray-200 ${
 								normalizedUserID === normalizedCID ? "chat-end" : "chat-start"
 							}`}
 						>
@@ -221,9 +286,7 @@ const ChatHistory = ({ user, messages }) => {
 								{message.messageObj.content}
 							</div>
 							<time
-								className={`chat-footer text-xs opacity-50 mt-1 ${
-									normalizedUserID === normalizedCID ? "text-white" : " "
-								}`}
+								className={`chat-footer text-xs opacity-80 mt-1 text-white`}
 							>
 								at {formattedTime}
 							</time>
@@ -231,6 +294,15 @@ const ChatHistory = ({ user, messages }) => {
 					</div>
 				);
 			})}
+		</div>
+	);
+};
+
+const NotificationComponent = ({ notification }) => {
+	return (
+		<div className="alert bg-white text-black">
+			<span>{notification.title}</span>
+			<span>{notification.message}</span>
 		</div>
 	);
 };
