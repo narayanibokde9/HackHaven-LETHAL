@@ -70,7 +70,10 @@ function Navbar() {
 						</details>
 					</li>
 					<li>
-						<Link href="/issuelist">Check Grievances</Link>
+						<Link href="/issuelist">Check Issues</Link>
+					</li>
+					<li>
+						<Link href="/grievancelist">Check Grievances</Link>
 					</li>
 				</ul>
 			</div>

@@ -7,6 +7,7 @@ import { Providers } from "./providers";
 import { PolybaseParent } from "./polybaseprovider";
 import Footer from "@/components/Footer";
 import { CheckAccount } from "@/providers/checkAccount";
+import "@rainbow-me/rainbowkit/styles.css";
 
 export const metadata = {
     title: "Create Next App",

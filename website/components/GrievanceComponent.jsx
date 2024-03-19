@@ -34,8 +34,8 @@ const IssueComponent = ({ title, message, imageUrl, upvotes, id, tags }) => {
 					</div>
 				)}
 				<div className="p-8">
-					<div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-						Issue
+					<div className="uppercase tracking-wide text-sm text-red-500 font-semibold">
+						Grievance
 					</div>
 					<h2 className="mt-2 text-xl font-semibold text-gray-800">{title}</h2>
 					<p className="mt-2 text-gray-600">{message}</p>
@@ -95,25 +95,6 @@ const IssueComponent = ({ title, message, imageUrl, upvotes, id, tags }) => {
 								</div>
 							</div>
 						)}
-						{/* <div className="mt-4 flex justify-between items-center"> */}
-						<Link href={`/issuelist/${id}`} className="text-gray-600">
-							<div className="btn flex items-center">
-								<GrStatusUnknown className="h-6 w-6" />
-								<span className="text-gray-600 pl-2 hidden sm:block">
-									Check Status
-								</span>
-							</div>
-						</Link>
-						<Link href={`/updateissue/${id}`} className="text-gray-600">
-							<div className="btn flex items-center">
-								<GrStatusUnknown className="h-6 w-6" />
-								<span className="text-gray-600 pl-2 hidden sm:block">
-									Take up task{" "}
-									{/*Add a controller to add this employee to the list of employees that have taken up the task for this issue */}
-								</span>
-							</div>
-						</Link>
-						{/* </div> */}
 					</div>
 				</div>
 			</div>

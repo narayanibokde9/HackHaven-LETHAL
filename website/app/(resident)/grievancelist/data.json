@@ -1,0 +1,53 @@
+[
+	{
+		"id": 1,
+		"wallet_address": "0x1aE0F84eDfF1A2b7F6Cbaa0eF0dEa4F63D96fE87",
+		"title": "Delay in Delivery",
+		"message": "I ordered a product a month ago, but it still hasn't been delivered. Please look into this matter urgently.",
+		"images": [
+			"https://images.hindustantimes.com/rf/image_size_630x354/HT/p2/2018/07/25/Pictures/_8ac08ef0-8ff7-11e8-950a-c127747267f3.jpg"
+		],
+		"upvotes": 23,
+		"chatId": "87e029ad9825b78b871710daf12b9700b845b7c39ef1c447304a3d89defc525d",
+		"tags": ["delivery", "customer service"]
+	},
+	{
+		"id": 2,
+		"wallet_address": "0x0Fb0F7299D4e0F92A7d428b0bB5E2C382bDff618",
+		"title": "Poor Customer Service",
+		"message": "I've been trying to contact customer service for a week regarding an issue with my account, but haven't received any response. This is unacceptable!",
+		"images": [],
+		"upvotes": 10,
+		"tags": ["customer service", "support"]
+	},
+	{
+		"id": 3,
+		"wallet_address": "0xAcE9c32c7FeA01387A32F7C69e20f3D4F8eC22D1",
+		"title": "Defective Product Received",
+		"message": "Received a defective product. Tried contacting support but no response yet.",
+		"images": ["https://example.com/image3.jpg"],
+		"upvotes": 15,
+		"tags": ["product", "quality"]
+	},
+	{
+		"id": 4,
+		"wallet_address": "0xBcD182F4c86bC32b1e42F5Ffa2E0bE1DEfAbD2f8",
+		"title": "Unauthorized Charges",
+		"message": "I noticed unauthorized charges on my account. Please investigate and refund the amount immediately.",
+		"images": [],
+		"upvotes": 5,
+		"tags": ["billing", "security"]
+	},
+	{
+		"id": 5,
+		"wallet_address": "0x5F2d9C56e27341e56A83482f7821B92bE68bAf4c",
+		"title": "Website Glitches",
+		"message": "Encountered several glitches while using the website. This needs to be fixed as soon as possible.",
+		"images": [
+			"https://example.com/image4.jpg",
+			"https://example.com/image5.jpg"
+		],
+		"upvotes": 8,
+		"tags": ["website", "bugs"]
+	}
+]
