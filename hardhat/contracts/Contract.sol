@@ -32,6 +32,11 @@ interface ILethalNFT {
     function freeMint(address caller) external returns (uint256);
 }
 
+// PUSH Comm Contract Interface
+interface IPUSHCommInterface {
+    function sendNotification(address _channel, address _recipient, bytes calldata _identity) external;
+}
+
 contract Contract is AccessControl {
     ILethalNFT lethalNFT;
     //Constructor
@@ -318,6 +323,9 @@ contract Contract is AccessControl {
         uint256 votingPower = resident.lockedUpNFTs.length;
         grievance.upvotes += votingPower;
 
+        Resident memory voter = residents[msg.sender];
+        grievanceVoters[grievancesCounter].push(voter);
+
         if(grievance.upvotes > uint256(30) * totalVotingPower / 100){
             issues[issueCounter] = Issue(
             issueCounter,
@@ -334,10 +342,9 @@ contract Contract is AccessControl {
             );
             issueCounter++;
             grievance.convertedToIssue = true;
+            delete grievances[_grievanceId];
         }
 
-        Resident memory voter = residents[msg.sender];
-        grievanceVoters[grievancesCounter].push(voter);
 
         emit UpvotedAGrievance(_grievanceId, grievance.upvotes, issueCounter);
     }
@@ -400,6 +407,25 @@ contract Contract is AccessControl {
         );
         issueUpdates[_issueId].push(updates[updateCounter]);
         updateCounter++;
+        IPUSHCommInterface(0x37c779a1564DCc0e3914aB130e0e787d93e21804).sendNotification(
+            0xe53aa078E1af37E9c9f3AeFDC652bBDd98c8e51D, // from channel - recommended to set channel via dApp and put it's value -> then once contract is deployed, go back and add the contract address as delegate for your channel
+            0xe53aa078E1af37E9c9f3AeFDC652bBDd98c8e51D, // to recipient, put YOUR_CHANNEL_ADDRESS in case you want Broadcast or Subset. For Targetted put the address to which you want to send
+
+            bytes(
+                string(
+                    // We are passing identity here: https://push.org/docs/notifications/notification-standards/notification-standards-advance/#notification-identity
+                    abi.encodePacked(
+                        "0", // this represents minimal identity, learn more: https://push.org/docs/notifications/notification-standards/notification-standards-advance/#notification-identity
+                        "+", // segregator
+                        "1", // define notification type:  https://push.org/docs/notifications/build/types-of-notification (1, 3 or 4) = (Broadcast, targeted or subset)
+                        "+", // segregator
+                        _title, // this is notification title
+                        "+", // segregator
+                        _message // notification body
+                    )
+                )
+            )
+        );
         emit PostedUpdate(_issueId, _title);
     }
 
