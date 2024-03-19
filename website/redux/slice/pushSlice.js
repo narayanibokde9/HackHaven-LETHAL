@@ -31,6 +31,9 @@ const pushSlice = createSlice({
 		handleAddDialog: (state, action) => {
 			state.addDialog = !state.addDialog;
 		},
+		clearUser: (state) => {
+			state.user = null;
+		}
 	},
 });
 
@@ -41,6 +44,7 @@ export const {
 	setStream,
 	setData,
 	handleAddDialog,
+	clearUser
 } = pushSlice.actions;
 
 export default pushSlice.reducer;

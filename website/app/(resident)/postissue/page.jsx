@@ -71,23 +71,7 @@ function PostIssue() {
                         </p>
                         {useAccount().isConnected && (
                             <>
-                                {!user && (
-                                    <button
-                                        className='w-full mt-10 rounded-2xl flex items-center justify-center'
-                                        size='lg'
-                                        onClick={async () => {
-                                            const user = await initUser(signer);
-                                            if (user) {
-                                                if (!user.readMode) {
-                                                    console.log(user.readMode);
-                                                    dispatch(setUser(user));
-                                                }
-                                            }
-                                        }}
-                                    >
-                                        Initiate Push{" "}
-                                    </button>
-                                )}
+                                
                                 <div className='w-full shadow-2xl bg-base-100'>
                                     <form
                                         className='card-body'
@@ -101,7 +85,11 @@ function PostIssue() {
                                                     className='grow'
                                                     placeholder='My Grievance'
                                                     value={issueTitle}
-                                                    onChange={setIssueTitle}
+                                                    onChange={(e) => {
+                                                        setIssueTitle(
+                                                            e.target.value
+                                                        );
+                                                    }}
                                                 />
                                             </label>
                                             <div>
