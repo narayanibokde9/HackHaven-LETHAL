@@ -3,35 +3,35 @@
 import { configureStore } from "@reduxjs/toolkit";
 import pushSlice from "@/redux/slice/pushSlice";
 
-import { persistStore, persistReducer } from "redux-persist";
-import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
+// import { persistStore, persistReducer } from "redux-persist";
+// import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 
-const createNoopStorage = () => {
-   return {
-      getItem(_key) {
-         return Promise.resolve(null);
-      },
-      setItem(_key, value) {
-         return Promise.resolve(value);
-      },
-      removeItem(_key) {
-         return Promise.resolve();
-      },
-   };
-};
-const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage();
+// const createNoopStorage = () => {
+//    return {
+//       getItem(_key) {
+//          return Promise.resolve(null);
+//       },
+//       setItem(_key, value) {
+//          return Promise.resolve(value);
+//       },
+//       removeItem(_key) {
+//          return Promise.resolve(); 
+//       },
+//    };
+// };
+// const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage();
 
-// Create persist configuration
-const persistConfig = {
-    key: "root",
-    storage,
-};
-// Create persisted reducer
-const persistedReducer = persistReducer(persistConfig, pushSlice);
+// // Create persist configuration
+// const persistConfig = {
+//     key: "root",
+//     storage,
+// };
+// // Create persisted reducer
+// const persistedReducer = persistReducer(persistConfig, pushSlice);
 
 export const store = configureStore({
     reducer: {
-        push: persistedReducer,
+        push: pushSlice,
     },
 
     middleware: (getDefaultMiddleware) =>
@@ -41,4 +41,4 @@ export const store = configureStore({
 });
 
 // Create persistor
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);

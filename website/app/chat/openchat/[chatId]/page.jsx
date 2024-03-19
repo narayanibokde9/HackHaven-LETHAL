@@ -2,7 +2,10 @@
 import { PushAPI, CONSTANTS } from "@pushprotocol/restapi";
 import useEthersSigner from "@/hooks/useEthersSigner";
 import { useAccount } from "wagmi";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import usePush from "@/hooks/usePush";
+import { setUser } from "@/redux/slice/pushSlice";
 
 const fetchChats = async (user) => {
 	const chats = await user.chat.list("CHATS");
@@ -36,10 +39,15 @@ const joinGroup = async (user) => {
 const GroupChat = ({ params }) => {
 	const chatId = params.chatId;
 	const account = useAccount();
+	const dispatch = useDispatch();
 	const signer = useEthersSigner({ chainId: account.chainId });
 	const [chat, setChat] = useState(null);
 	const [history, setHistory] = useState([]);
-	const [user, setUser] = useState(null);
+	const [user, setUserState] = useState(null);
+	const user2 = useSelector((state) => state.push.user);
+	console.log("uhhuh", user2);
+	console.log("hel", user);
+	const { fetchChats } = usePush();
 
 	useEffect(() => {
 		let isMounted = true;
@@ -52,7 +60,12 @@ const GroupChat = ({ params }) => {
 					const newUser = await PushAPI.initialize(signer, {
 						env: CONSTANTS.ENV.STAGING,
 					});
-					setUser(newUser);
+					setUserState(newUser);
+					if (user) {
+						if (!user.readMode) {
+							dispatch(setUser(user));
+						}
+					}
 				}
 
 				if (!chat) {
@@ -77,7 +90,7 @@ const GroupChat = ({ params }) => {
 		return () => {
 			isMounted = false;
 		};
-	}, [signer, account, chatId, user]);
+	}, [account, signer, chatId, user]);
 
 	const handleMessageChange = (event) => {
 		setMessage(event.target.value);
@@ -103,13 +116,29 @@ const GroupChat = ({ params }) => {
 		const res = await fetchChatHistory(chatId, user);
 		setHistory(res);
 	};
+	const data = useSelector((state) => state.push.data);
 
 	const [message, setMessage] = useState("");
+
+	// useEffect(() => {
+	// 	if (user) {
+	// 		fetchChats();
+	// 	}
+	// }, [user]);
+
+	// useEffect(() => {
+	// 	if (data && user) {
+	// 		fetchChats();
+	// 	}
+	// }, [data]);
+
+	// const chats = useSelector((state) => state.push.chats);
+	// console.log("mm", chats);
 
 	return (
 		<div className="m-16">
 			{chat && <ChatHeader chat={chat} />}
-			<button onClick={sendMessageText}>Send Text</button>
+			<button onClick={fetchChats}>Fetch Chats</button>
 			<br />
 			<button onClick={handleJoinGroup}>Join Group</button>
 			<br />

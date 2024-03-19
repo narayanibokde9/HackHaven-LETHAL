@@ -14,6 +14,7 @@ export default function usePush() {
 	const user = useSelector((state) => state.push.user);
 
 	const fetchChats = async () => {
+		console.log("sign", user.chat.list);
 		const chat = await user.chat.list("CHATS");
 		dispatch(setChats(chat));
 	};

@@ -25,9 +25,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import "@rainbow-me/rainbowkit/styles.css";
 
-import { persistor, store } from "@/redux/store";
+import { store } from "@/redux/store";
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
+// import { PersistGate } from "redux-persist/integration/react";
 
 const { wallets } = getDefaultWallets();
 
@@ -60,13 +60,13 @@ const queryClient = new QueryClient();
 export function Providers({ children }) {
     return (
         <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
+            {/* <PersistGate loading={null} persistor={persistor}> */}
                 <WagmiProvider config={config}>
                     <QueryClientProvider client={queryClient}>
                         <RainbowKitProvider>{children}</RainbowKitProvider>
                     </QueryClientProvider>
                 </WagmiProvider>
-            </PersistGate>
+            {/* </PersistGate> */}
         </Provider>
     );
 }
