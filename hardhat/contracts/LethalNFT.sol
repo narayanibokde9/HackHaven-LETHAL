@@ -5,8 +5,8 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
- * Super simple NFT contract that uses `ERC721Enumerable`
- * Allows for free NFT mints until `MAX_NFTS` count is reached
+ * Super simple NFT contract that uses ERC721Enumerable
+ * Allows for free NFT mints until MAX_NFTS count is reached
  */
 contract LethalNFT is ERC721Enumerable {
     uint256 public immutable MAX_NFTS;

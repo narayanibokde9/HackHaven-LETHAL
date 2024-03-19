@@ -1,5 +1,6 @@
 "use client";
 
+import { uploadFile } from "@/functions/uploadFile";
 import Image from "next/image";
 import { useState, useRef } from "react";
 
@@ -10,37 +11,14 @@ export default function Home() {
     console.log(cids);
 
     const inputFile = useRef(null);
-
-    const uploadFile = async (fileToUpload) => {
-        try {
-            setUploading(true);
-            const data = new FormData();
-            data.append("file", fileToUpload);
-            const pinataMetadata = JSON.stringify({ name: fileToUpload.name });
-            data.append("pinataMetadata", pinataMetadata);
-            const pinataOptions = JSON.stringify({
-                cidVersion: 0,
-            });
-            data.append("pinataOptions", pinataOptions);
-            const res = await fetch("/api/files", {
-                method: "POST",
-                body: data,
-            });
-            const resData = await res.json();
-            setCids((prevCids) => [...prevCids, resData.IpfsHash]);
-            setUploading(false);
-        } catch (e) {
-            console.log(e);
-            setUploading(false);
-            alert("Trouble uploading file");
-        }
-    };
-
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         const selectedFiles = e.target.files;
         setFiles(selectedFiles);
         for (let i = 0; i < selectedFiles.length; i++) {
-            uploadFile(selectedFiles[i]);
+            setUploading(true);
+            const newCid = await uploadFile(selectedFiles[i]);
+            setCids((prev) => [...prev, newCid]);
+            setUploading(false);
         }
     };
 

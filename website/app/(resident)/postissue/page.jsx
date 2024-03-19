@@ -6,12 +6,21 @@ import useEthersSigner from "@/hooks/useEthersSigner";
 import { useAccount } from "wagmi";
 import { useDispatch, useSelector } from "react-redux";
 import { initUser } from "@/functions/initUser";
+import { uploadFile } from "@/functions/uploadFile";
+import { channelgroupimg } from "@/public/community";
+import { polybase } from "@/data/polybase/polybase";
+import { signMessage } from "@wagmi/core";
+import { config } from "@/data/configs/wagmi";
+import usePolybaseSigner from "@/hooks/usePolybaseSigner";
 
 function PostIssue() {
+    const [files, setFiles] = useState([]);
+    const [uploading, setUploading] = useState(false);
+
     const [issueTitle, setIssueTitle] = useState("");
+    const [location, setLocation] = useState("");
     const [tags, setTags] = useState([]);
     const [description, setDescription] = useState("");
-    const [selectedFile, setSelectedFile] = useState(null);
 
     const inputFile = useRef(null);
 
@@ -20,6 +29,7 @@ function PostIssue() {
     const dispatch = useDispatch();
 
     const account = useAccount();
+    usePolybaseSigner(account);
     const signer = useEthersSigner({ chainId: account.chainId });
 
     const createGroup = async (user, groupName, groupDescription) => {
@@ -27,11 +37,10 @@ function PostIssue() {
             console.error("User or chat object is null or undefined");
             return null; // Handle the error condition appropriately
         }
-        const groupImage = "data:image/png;base64,iVBORw0K...";
 
         const newGroup = await user.chat.group.create(groupName, {
             description: groupDescription,
-            image: groupImage,
+            image: channelgroupimg,
             members: [],
             admins: [],
             private: false,
@@ -43,32 +52,48 @@ function PostIssue() {
         console.log(newGroup);
         return newGroup;
     };
-    const createChannel = async (user) => {
-        const response = await user.channel.create({
-            name: "Test Channel",
-            description: "Test Description",
-            icon: "data:image/png;base64,iVBOR...",
-            url: "https://staging.push.org",
-        });
-        console.log("created", response);
-        return response;
-    };
-    
     const handleChange = (e) => {
         const selectedFiles = e.target.files;
         setFiles(selectedFiles);
-        for (let i = 0; i < selectedFiles.length; i++) {
-            uploadFile(selectedFiles[i]);
-        }
     };
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Issue Title:", issueTitle);
-        console.log("Tags:", tags);
-        console.log("Description:", description);
-        console.log("Selected Files:", selectedFile);
-        createGroup(user, issueTitle, description);
+        let cids = [];
+        for (let i = 0; i < files.length; i++) {
+            try {
+                setUploading(true);
+                const newCid = await uploadFile(files[i]);
+                cids.push(newCid);
+                console.log(cids);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        let chatId;
+        try {
+            const group = await createGroup(user, issueTitle, description);
+            chatId = group.chatId;
+        } catch (error) {
+            console.log("Error in creating Push Group", error);
+        }
+        try {
+            const residentReference = polybase.collection("Issue");
+            const recordData = await residentReference.create([
+                account.address,
+                issueTitle,
+                [...tags],
+                location,
+                chatId,
+                cids,
+                description,
+                0,
+                true,
+            ]);
+            console.log(recordData);
+        } catch (error) {
+            console.log("Error in creating Poly Record", error);
+        }
+        setUploading(false);
     };
 
     return (
@@ -81,10 +106,12 @@ function PostIssue() {
                                 Issue a Grievance
                             </h1>
                             <p className='py-6'>
-                                Provident cupiditate voluptatem et in. Quaerat
-                                fugiat ut assumenda excepturi exercitationem
-                                quasi. In deleniti eaque aut repudiandae et a id
-                                nisi.
+                                If you have encountered any issues or concerns,
+                                we encourage you to issue a grievance. Your
+                                feedback is invaluable to a better community.
+                                Please provide details of your grievance,
+                                including any relevant images, so that we can
+                                address it promptly and effectively.
                             </p>
                             {!user && (
                                 <button
@@ -94,7 +121,6 @@ function PostIssue() {
                                         const user = await initUser(signer);
                                         if (user) {
                                             if (!user.readMode) {
-                                                console.log(user.readMode);
                                                 dispatch(setUser(user));
                                             }
                                         }
@@ -125,6 +151,20 @@ function PostIssue() {
                                                         }}
                                                     />
                                                 </label>
+                                                <label className='input input-bordered flex items-center gap-2'>
+                                                    Location
+                                                    <input
+                                                        type='text'
+                                                        className='grow'
+                                                        placeholder='location'
+                                                        value={location}
+                                                        onChange={(e) => {
+                                                            setLocation(
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                    />
+                                                </label>
                                                 <div>
                                                     <TagsInput
                                                         value={tags}
@@ -148,25 +188,33 @@ function PostIssue() {
                                                 </div>
                                                 <input
                                                     type='file'
+                                                    id='file'
+                                                    ref={inputFile}
                                                     className='file-input file-input-bordered file-input-info w-full max-w-xs'
-                                                    onChange={handleFileChange}
+                                                    onChange={handleChange}
+                                                    accept='image/*' // Restricts selection to only image files
+                                                    multiple // Allows multiple files to be selected
                                                 />
-                                                <input
-                type='file'
-                id='file'
-                ref={inputFile}
-                onChange={handleChange}
-                accept='image/*' // Restricts selection to only image files
-                multiple // Allows multiple files to be selected
-            />
                                                 <div className='form-control mt-6'>
                                                     <button
+                                                        disabled={
+                                                            uploading || !user
+                                                        }
                                                         type='submit'
                                                         className='btn btn-info'
                                                     >
-                                                        Submit
+                                                        {uploading
+                                                            ? "Uploading"
+                                                            : "Submit"}
                                                     </button>
                                                 </div>
+                                                {
+                                                    !user && (
+                                                        <p className='bg-slate-500 rounded-xl w-full text-white text-bold text-center p-4'>
+                                                            Please initiate Push
+                                                        </p>
+                                                    ) // Show this message if the user is not connected
+                                                }
                                             </div>
                                         </form>
                                     </div>

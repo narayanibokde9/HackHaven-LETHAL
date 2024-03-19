@@ -27,6 +27,7 @@ interface ILethalNFT {
     ) external;
 
     /// @dev Returns the owner of the tokenId token.
+    /// @dev Returns the owner of the tokenId token.
     function ownerOf(uint256 tokenId) external view returns (address owner);
 
     function freeMint(address caller) external returns (uint256);
@@ -336,6 +337,8 @@ contract Contract is AccessControl {
             grievance.convertedToIssue = true;
         }
 
+        Resident memory voter = residents[msg.sender];
+        grievanceVoters[grievancesCounter].push(voter);
         Resident memory voter = residents[msg.sender];
         grievanceVoters[grievancesCounter].push(voter);
 
