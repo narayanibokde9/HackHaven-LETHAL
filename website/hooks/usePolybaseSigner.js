@@ -2,7 +2,7 @@ import { config } from "@/data/configs/wagmi";
 import { polybase } from "@/data/polybase/polybase";
 import { signMessage } from '@wagmi/core'
 
-function usePolybaseSigner(account) {
+export default function usePolybaseSigner(account) {
     polybase.signer(async (data) => {
         const sig = await signMessage(config, {
             account: account.address,
@@ -15,4 +15,3 @@ function usePolybaseSigner(account) {
         };
     });
 }
-export default usePolybaseSigner;
