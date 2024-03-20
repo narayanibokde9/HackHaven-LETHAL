@@ -7,13 +7,13 @@ function Hero() {
 			<div className="flex flex-col -ml-24 mr-8 -mt-16 lg:flex-col gap-24">
 				<div className="border border-blue-400 bg-white shadow-xl rounded-2xl p-16 flex flex-col w-auto min-w-96 max-lg:text-center text-left max-lg:pb-10">
 					<h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 justify-center">
-						DeWages
+						IssueDAO
 					</h1>
 					<h2 className="text-2xl sm:text-2xl md:text-5xl font-semibold text-blue-500 mb-6">
-						A decentralized hiring process
+						A decentralized automated complaint management system
 					</h2>
 					<h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 justify-center">
-						Get paid on time. Transparency. No-trust policy.
+						Your issues. Automated complaint management.
 					</h3>
 					<Link href="/verify">
 						<button className="p-3 bg-blue-500 text-primary-content hover:bg-blue-600 transition-all duration-100 rounded-xl">
@@ -25,7 +25,7 @@ function Hero() {
 					<div className="w-96 h-94 mx-2 pt-8 bg-white flex flex-col items-center shadow-xl rounded-xl">
 						<Image src={"/complaint.png"} height="180" width="180" />
 						<div className="z-20 flex flex-col p-4 items-center text-center">
-							<h2 className="card-title">Efficient Grievance Submission</h2>
+							<h2 className="card-title">Efficient Complaint Management</h2>
 							<p>
 								Hire work force for your company.
 								<br />

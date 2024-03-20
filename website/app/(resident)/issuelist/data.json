@@ -2,14 +2,14 @@
 	{
 		"id": 1,
 		"wallet_address": "0x1aE0F84eDfF1A2b7F6Cbaa0eF0dEa4F63D96fE87",
-		"title": "Delay in Delivery",
-		"message": "I ordered a product a month ago, but it still hasn't been delivered. Please look into this matter urgently.",
+		"title": "Waterlogging in Kandivali",
+		"message": "Lot of waterlogging in kandivali due to potholes. Please fix this as soon as possible.",
 		"images": [
 			"https://images.hindustantimes.com/rf/image_size_630x354/HT/p2/2018/07/25/Pictures/_8ac08ef0-8ff7-11e8-950a-c127747267f3.jpg"
 		],
 		"upvotes": 23,
 		"chatId": "87e029ad9825b78b871710daf12b9700b845b7c39ef1c447304a3d89defc525d",
-		"tags": ["delivery", "customer service"]
+		"tags": ["waterlogging", "potholes"]
 	},
 	{
 		"id": 2,

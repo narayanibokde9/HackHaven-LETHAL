@@ -1,10 +1,14 @@
 "use client";
 
+import IssueComponent from "@/components/IssueComponent";
 import { polybase } from "@/data/polybase/polybase";
 import usePolybaseSigner from "@/hooks/usePolybaseSigner";
+import Image from "next/image";
+import { useState } from "react";
 import { useAccount } from "wagmi";
 
 function MyIssues() {
+    const [issues, setIssues] = useState([]);
     const account = useAccount();
     if (account.connector) usePolybaseSigner(account);
     const issueReference = polybase.collection("Issue");
@@ -12,21 +16,29 @@ function MyIssues() {
     const myIssues = async () => {
         console.log(account.address);
         recordData = await issueReference
-            .where("id", "==", `${account.address}`)
+            .where("walletId", "==", `${account.address}`)
             .get();
         const { data } = recordData;
-        console.log(data);
+        data.map((issue) => {
+            setIssues((prev) => [...prev, issue.data]);
+            // console.log(issue.data);
+        });
+    };
+    const deleteIssue = async (id) => {
         console.log("Now deleting record");
-        const deletedRecord = await issueReference
-            .record(`${account.address}`)
-            .call("del");
+        const deletedRecord = await issueReference.record(`${id}`).call("del");
         console.log("Deleted:", deletedRecord);
     };
+
     return (
         <>
-            {recordData?.map((issue) => {
+            {issues?.map((issue) => {
                 console.log(issue);
-                return <div>GOT {issue}</div>;
+                return (
+                    <>
+                        <IssueComponent title={issue.title} message={issue.message} imageUrl={issue.images} upvotes={issue.upvotes} id={issue.walletId} tags={issue.tags} />
+                    </>
+                );
             })}
             <button
                 onClick={async () => await myIssues()}
