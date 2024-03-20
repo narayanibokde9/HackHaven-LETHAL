@@ -82,7 +82,7 @@ const GrievanceList = ({ title, message, imageUrl, upvotes, id, chatId, tags }) 
                                             dispatch(setUser(user));
                                             streamChat(user);
                                             console.log("hello", user);
-                                            router.push(`/chat/${id}`);
+                                            // router.push(`/chat/${id}`);
                                         }
                                     }
                                 }}

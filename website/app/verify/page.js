@@ -9,22 +9,22 @@ import { useAccount } from "wagmi";
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { WCM } from "@/contracts/WCM";
 import HashAndError from "@/components/HashAndError";
+import { useRouter } from "next/navigation";
 
 function Verify() {
 	const account = useAccount();
+	const router = useRouter();
 	const [userType, setUserType] = useState("res");
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [location, setLocation] = useState("");
 	const [age, setAge] = useState("");
 	const [post, setPost] = useState("");
+	const [processing, setProcessing] = useState(false);
+	const [processed, setProcessed] = useState(false);
+	const [failed,setFailed] = useState(false)
 
 	const { data: hash, error, isPending, writeContract } = useWriteContract();
-
-	// function submitResident(e) {
-	// 	e.preventDefault();
-	// 	console.log(name, age, email, location);
-	// }
 
 	const { isLoading: isConfirming, isSuccess: isConfirmed } =
 		useWaitForTransactionReceipt({
@@ -32,39 +32,53 @@ function Verify() {
 		});
 
 	const user = useSelector((state) => state.push.user);
-	// console.log(user);
-
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (userType === "res") {
-			writeContract({
-				address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
-				abi: WCM.abi,
-				functionName: "addResident",
-				args: [name, age, email, location],
-			});
-			createPolyRecord("Resident", account, [
-				account.address,
-				name,
-				email,
-				location,
-				age,
-			]);
-		} else {
-			writeContract({
-				address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
-				abi: WCM.abi,
-				functionName: "addEmployee",
-				args: [name, age, email, location],
-			});
-			createPolyRecord("Employee", account, [
-				account.address,
-				name,
-				email,
-				location,
-				post,
-				age,
-			]);
+		setProcessing(true); // Start processing
+
+		try {
+			if (userType === "res") {
+				await writeContract({
+					address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+					abi: WCM.abi,
+					functionName: "addResident",
+					args: [name, age, email, location],
+				});
+				await createPolyRecord("Resident", account, [
+					account.address,
+					name,
+					email,
+					location,
+					age,
+				]);
+				setProcessing(false); // End processing
+				setProcessed(true);
+				{
+					processed && router.push(`/profile/resident/${account.address}`);
+				}
+			} else {
+				await writeContract({
+					address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+					abi: WCM.abi,
+					functionName: "addEmployee",
+					args: [name, age, email, location],
+				});
+				await createPolyRecord("Employee", account, [
+					account.address,
+					name,
+					email,
+					location,
+					post,
+					age,
+				]);
+				setProcessed(true);
+				setProcessing(false); // End processing
+				{processed && router.push(`/profile/employee/${account.address}`)};
+			}
+		} catch (error) {
+			console.error("Error processing transaction:", error);
+			setProcessing(false);
+			setFailed(true);
 		}
 	};
 
@@ -148,8 +162,12 @@ function Verify() {
 											>
 												{isPending ? "Confirming..." : "Submit"}
 											</button>
+											{/* <div>{processing && <div>Processing...</div>}</div> */}
 											<div className="text-center mt-4">
 												<HashAndError
+													failed = {failed}
+													processed={processed}
+													processing={processing}
 													hash={hash}
 													isConfirming={isConfirming}
 													isConfirmed={isConfirmed}
@@ -279,6 +297,8 @@ function Verify() {
 											</button>
 											<div className="text-center mt-4">
 												<HashAndError
+													processed={processed}
+													processing={processing}
 													hash={hash}
 													isConfirming={isConfirming}
 													isConfirmed={isConfirmed}
