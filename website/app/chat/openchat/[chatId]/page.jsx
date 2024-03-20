@@ -288,9 +288,7 @@ const ChatHistory = ({ user, messages }) => {
 							<div className="chat-bubble bg-gray-200 text-black">
 								{message.messageObj.content}
 							</div>
-							<time
-								className={`chat-footer text-xs opacity-80 mt-1 text-white`}
-							>
+							<time className={`chat-footer text-xs text-black mt-1`}>
 								at {formattedTime}
 							</time>
 						</div>
