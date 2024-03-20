@@ -53,7 +53,7 @@ const fetchNotifications = async (user) => {
 
 const sendNotification = async (user) => {
 	const sendNotifRes = await user.channel.send(["*"], {
-		notification: { title: "test notif", body: "test" },
+		notification: { title: "Waterlogging", body: "Work started" },
 	});
 	console.log("sent", sendNotifRes);
 	return sendNotifRes;
