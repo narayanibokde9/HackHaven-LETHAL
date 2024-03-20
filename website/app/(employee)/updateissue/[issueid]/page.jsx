@@ -1,17 +1,32 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
 import UpdateIssueStatus from "@/components/UpdateIssueStatus";
-import data from "../../../(resident)/issuelist/data.json";
+import { useAccount } from "wagmi";
+import { polybase } from "@/data/polybase/polybase";
+import usePolybaseSigner from "@/hooks/usePolybaseSigner";
+import IssueStatus from "@/components/IssueStatus";
 
 const App = ({ params }) => {
 	const id = params.issueid;
-	console.log(id);
-	console.log("hello");
-	const findIssueById = (id) => {
-		return data.find((issue) => issue.id == id);
-	};
 
-	// Find the item in data array based on the title
-	const issueToDisplay = findIssueById(id);
+    const [issue, setIssue] = useState();
+
+    const account = useAccount();
+    if (account.connector) usePolybaseSigner(account);
+    const issueReference = polybase.collection("Issue");
+    let recordData;
+    const findIssueById = async (issueId) => {
+        // console.log(account.address,"\n",id);
+		const decodedString = decodeURIComponent(issueId);
+        recordData = await issueReference.where("id", "==", `${decodedString}`).get();
+        const { data } = recordData;
+        // console.log(data[0].data);
+        setIssue(data[0].data);
+    };
+    // console.log(account);
+    // Find the item in data array based on the id
+    findIssueById(id);
 	// Render IssueComponent if item is found
 	// console.log(issueToDisplay.images);
 	return (
@@ -22,14 +37,14 @@ const App = ({ params }) => {
 				</span>{" "}
 				Status
 			</h1>
-			{issueToDisplay && (
+			{issue && (
 				<UpdateIssueStatus
-					title={issueToDisplay.title}
-					message={issueToDisplay.message}
-					images={issueToDisplay.images}
-					upvotes={issueToDisplay.upvotes}
-					id={issueToDisplay.id}
-					tags={issueToDisplay.tags}
+					title={issue.title}
+					message={issue.message}
+					images={issue.images}
+					upvotes={issue.upvotes}
+					id={issue.id}
+					tags={issue.tags}
 				/>
 			)}
 		</div>

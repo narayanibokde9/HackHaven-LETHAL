@@ -68,19 +68,6 @@ const IssueComponent = ({ title, message, imageUrl, upvotes, id, chatId, tags })
 							<div
 								className="text-gray-600"
 								size="lg"
-								onClick={async () => {
-									const user = await PushAPI.initialize(signer, {
-										env: CONSTANTS.ENV.STAGING,
-									});
-									if (user) {
-										if (!user.readMode) {
-											dispatch(setUser(user));
-											streamChat(user);
-											console.log("hello", user);
-											router.push(`/chat/${id}`);
-										}
-									}
-								}}
 							>
 								 <Link href={`/chat/openchat/${chatId}`}>
                                     <div className='btn flex items-center space-x-2'>
@@ -114,7 +101,7 @@ const IssueComponent = ({ title, message, imageUrl, upvotes, id, chatId, tags })
 							<div className="btn flex items-center">
 								<GrStatusUnknown className="h-6 w-6" />
 								<span className="text-gray-600 pl-2 hidden sm:block">
-									Take up task{" "}
+									Post update{" "}
 									{/*Add a controller to add this employee to the list of employees that have taken up the task for this issue */}
 								</span>
 							</div>

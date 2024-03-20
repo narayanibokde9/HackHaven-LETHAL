@@ -113,7 +113,7 @@ const App = () => {
             {/* Render filtered issues or display "No relevant items" */}
             {issues.length > 0 ? (
                 issues.map((issue, index) => (
-                    <Link href={`/issuelist/1`}>
+                    <Link href={`/issuelist/${issue.id}`}>
                         <div key={index} className='m-2'>
                             <IssueComponent
                                 title={issue.title}
