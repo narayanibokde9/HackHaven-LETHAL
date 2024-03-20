@@ -46,7 +46,7 @@ function Navbar() {
 					</ul>
 				</div>
 				<Link href={"/"} className="btn btn-ghost text-xl">
-					daisyUI
+					IssueDAO
 				</Link>
 			</div>
 			<div className="navbar-center hidden lg:flex">

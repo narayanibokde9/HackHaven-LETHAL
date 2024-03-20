@@ -11,8 +11,9 @@ import { setUser } from "@/redux/slice/pushSlice";
 import usePush from "@/hooks/usePush";
 import { useAccount } from "wagmi";
 import { CONSTANTS, PushAPI } from "@pushprotocol/restapi";
+import Image from "next/image";
 
-const IssueComponent = ({ title, message, imageUrl, upvotes, id, tags }) => {
+const IssueComponent = ({ title, message, imageUrl, upvotes, id, chatId, tags }) => {
 	const account = useAccount();
 	const signer = useEthersSigner({ chainId: account.chainId });
 
@@ -22,14 +23,17 @@ const IssueComponent = ({ title, message, imageUrl, upvotes, id, tags }) => {
 	const stream = useSelector((state) => state.push.stream);
 
 	return (
-		<div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+		<div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl w-full mb-4">
 			<div className="md:flex">
 				{imageUrl && (
 					<div className="md:flex-shrink-0">
-						<img
+						<Image
 							className="h-48 w-full object-cover md:w-48"
-							src={imageUrl}
-							alt="Grievance Image"
+							src={`${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/${imageUrl[0]}?pinataGatewayToken=${process.env.NEXT_PUBLIC_PINATA_GATEWAY_TOKEN}`}
+							width={500}
+							height={500}
+							alt={title}
+							priority
 						/>
 					</div>
 				)}
@@ -78,12 +82,14 @@ const IssueComponent = ({ title, message, imageUrl, upvotes, id, tags }) => {
 									}
 								}}
 							>
-								<div className="btn flex items-center space-x-2">
-									<IoChatboxEllipsesOutline className="h-6 w-6" />
-									<span className="text-gray-600 pl-2 hidden sm:block">
-										Join discussion
-									</span>
-								</div>
+								 <Link href={`/chat/openchat/${chatId}`}>
+                                    <div className='btn flex items-center space-x-2'>
+                                        <IoChatboxEllipsesOutline className='h-6 w-6' />
+                                        <span className='text-gray-600 pl-2 hidden sm:block'>
+                                            Join discussion
+                                        </span>
+                                    </div>
+                                </Link>
 							</div>
 						) : (
 							<div className="text-gray-600" size="lg">

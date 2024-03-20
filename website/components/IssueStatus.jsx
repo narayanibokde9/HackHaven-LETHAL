@@ -3,7 +3,7 @@ import React from "react";
 import { BiUpvote } from "react-icons/bi";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 import { GrStatusUnknown } from "react-icons/gr";
-
+import update from '../app/(resident)/issuelist/update.json'
 const IssueStatus = ({ title, message, images, upvotes, id, tags }) => {
 	console.log(images);
 	return (
@@ -60,24 +60,23 @@ const IssueStatus = ({ title, message, images, upvotes, id, tags }) => {
 				</div>
 			</div>
 
-			<div className="col-span-2 md:col-span-1 border p-8 bg-white shadow-xl">
+			<div className="col-span-2 md:col-span-1 border p-8 bg-white shadow-xl w-screen">
 				<h1 className="text-xl font-semibold text-gray-800">Current Status</h1>
 				<ul className="timeline timeline-vertical lg:timeline-horizontal">
-					<TimelineItem year="1984" event="First Macintosh computer" />
-					<TimelineItem year="1998" event="iMac" />
-					<TimelineItem year="2001" event="iPod" />
-					<TimelineItem year="2007" event="iPhone" />
-					<TimelineItem year="2015" event="Apple Watch" />
+					<TimelineItem year="9th Feb" event="Issue received" />
+					<TimelineItem year="10th Feb" event="Issue submitted" />
+					<TimelineItem year="15rd Feb" event="Nodal officer on-site" />
+					<TimelineItem year="23rd Feb" event="Workforce deployed" />
 				</ul>
 			</div>
-			<div className="col-span-2 md:col-span-1 border p-8 bg-white shadow-xl">
+			{/* <div className="col-span-2 md:col-span-1 border p-8 bg-white shadow-xl">
 				<div className="flex flex-col gap-4 w-52">
 					<div className="skeleton h-32 w-full"></div>
 					<div className="skeleton h-4 w-28"></div>
 					<div className="skeleton h-4 w-full"></div>
 					<div className="skeleton h-4 w-full"></div>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };
