@@ -3,7 +3,7 @@ import { PushAPI, CONSTANTS } from "@pushprotocol/restapi";
 import useEthersSigner from "@/hooks/useEthersSigner";
 import { useAccount } from "wagmi";
 import { useState } from "react";
-import { PushChatComponent } from "@/components/PushChatComponent";
+// import { PushChatComponent } from "@/components/PushChatComponent";
 
 const initUser = async (signer) => {
 	const user = await PushAPI.initialize(signer, {

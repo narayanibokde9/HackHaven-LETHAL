@@ -13,7 +13,6 @@
     "@material-tailwind/react": "^2.1.9",
     "@polybase/react": "^0.6.6",
     "@pushprotocol/restapi": "^1.7.2",
-    "@pushprotocol/uiweb": "^1.2.7",
     "@rainbow-me/rainbowkit": "^2.0.2",
     "@reduxjs/toolkit": "^2.2.1",
     "@tanstack/react-query": "^5.28.4",

@@ -27,9 +27,8 @@ function Hero() {
 						<div className="z-20 flex flex-col p-4 items-center text-center">
 							<h2 className="card-title">Efficient Complaint Management</h2>
 							<p>
-								Hire work force for your company.
-								<br />
-								Track work hours and pay accordingly.
+								Streamlining the process for swift issue reporting and
+								resolution.
 							</p>
 						</div>
 					</div>
@@ -38,8 +37,8 @@ function Hero() {
 						<div className="z-20 flex flex-col p-5 items-center text-center">
 							<h2 className="card-title">Transparent Review Process</h2>
 							<p>
-								Get paid according to work hours. <br />
-								Assurance of wages and salary.
+								Ensuring fairness and accountability through open evaluation
+								methods.
 							</p>
 						</div>
 					</div>
@@ -48,8 +47,8 @@ function Hero() {
 						<div className="z-20 flex flex-col p-5 items-center text-center">
 							<h2 className="card-title">Collaborative Problem Solving</h2>
 							<p>
-								Get paid according to work hours. <br />
-								Assurance of wages and salary.
+								Fostering community engagement to tackle challenges
+								collectively.
 							</p>
 						</div>
 					</div>
@@ -58,8 +57,7 @@ function Hero() {
 						<div className="z-20 flex flex-col p-5 items-center text-center">
 							<h2 className="card-title">Trackable Progress Updates</h2>
 							<p>
-								Get paid according to work hours. <br />
-								Assurance of wages and salary.
+								Providing real-time insights into issue resolution progress.
 							</p>
 						</div>
 					</div>

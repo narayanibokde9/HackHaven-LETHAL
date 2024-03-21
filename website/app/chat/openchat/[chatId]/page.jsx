@@ -281,7 +281,9 @@ const ChatHistory = ({ user, messages }) => {
 							}`}
 						>
 							{normalizedUserID !== normalizedCID ? (
-								<div className="chat-header">{normalizedUserID}</div>
+								<div className="chat-header text-black">
+									0x{normalizedUserID}
+								</div>
 							) : (
 								<div></div>
 							)}

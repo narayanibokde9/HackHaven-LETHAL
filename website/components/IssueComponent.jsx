@@ -13,7 +13,15 @@ import { useAccount } from "wagmi";
 import { CONSTANTS, PushAPI } from "@pushprotocol/restapi";
 import Image from "next/image";
 
-const IssueComponent = ({ title, message, imageUrl, upvotes, id, chatId, tags }) => {
+const IssueComponent = ({
+	title,
+	message,
+	imageUrl,
+	upvotes,
+	id,
+	chatId,
+	tags,
+}) => {
 	const account = useAccount();
 	const signer = useEthersSigner({ chainId: account.chainId });
 
@@ -82,14 +90,14 @@ const IssueComponent = ({ title, message, imageUrl, upvotes, id, chatId, tags })
 									}
 								}}
 							>
-								 <Link href={`/chat/openchat/${chatId}`}>
-                                    <div className='btn flex items-center space-x-2'>
-                                        <IoChatboxEllipsesOutline className='h-6 w-6' />
-                                        <span className='text-gray-600 pl-2 hidden sm:block'>
-                                            Join discussion
-                                        </span>
-                                    </div>
-                                </Link>
+								<Link href={`/chat/openchat/${chatId}`}>
+									<div className="btn flex items-center space-x-2">
+										<IoChatboxEllipsesOutline className="h-6 w-6" />
+										<span className="text-gray-600 pl-2 hidden sm:block">
+											Join discussion
+										</span>
+									</div>
+								</Link>
 							</div>
 						) : (
 							<div className="text-gray-600" size="lg">
@@ -110,16 +118,14 @@ const IssueComponent = ({ title, message, imageUrl, upvotes, id, chatId, tags })
 								</span>
 							</div>
 						</Link>
-						<Link href={`/updateissue/${id}`} className="text-gray-600">
+						{/* <Link href={`/updateissue/${id}`} className="text-gray-600">
 							<div className="btn flex items-center">
 								<GrStatusUnknown className="h-6 w-6" />
 								<span className="text-gray-600 pl-2 hidden sm:block">
 									Take up task{" "}
-									{/*Add a controller to add this employee to the list of employees that have taken up the task for this issue */}
 								</span>
 							</div>
-						</Link>
-						{/* </div> */}
+						</Link> */}
 					</div>
 				</div>
 			</div>

@@ -3,26 +3,27 @@
 		"issueId": 1,
 		"updateId": 1,
 		"employeeId": "EMP001",
-		"title": "Investigation Initiated",
+		"title": "Issue recieved",
 		"message": "Our team has initiated an investigation into the delay in delivery. We apologize for the inconvenience and will provide updates as soon as possible.",
-		"time": "2024-03-18T09:00:00"
+		"time": "2024-02-09T09:00:00"
 	},
 	{
 		"issueId": 1,
 		"updateId": 2,
 		"employeeId": "EMP002",
-		"title": "Delivery Rescheduled",
+		"title": "Issue submitted",
 		"message": "We have rescheduled the delivery and it is now expected to arrive within the next 3 business days. Thank you for your patience.",
-		"time": "2024-03-18T10:30:00"
+		"time": "2024-02-10T10:30:00"
 	},
 	{
 		"issueId": 1,
 		"updateId": 3,
 		"employeeId": "EMP003",
-		"title": "Delivery Completed",
+		"title": "Nodal officer on-site",
 		"message": "We are pleased to inform you that your order has been successfully delivered. We hope you enjoy your purchase!",
-		"time": "2024-03-18T13:45:00"
+		"time": "2024-03-15T13:45:00"
 	},
+
 	{
 		"issueId": 2,
 		"updateId": 1,

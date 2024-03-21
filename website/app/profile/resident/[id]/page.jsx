@@ -53,7 +53,7 @@ export default function Home({ params }) {
 			>
 				<div class="card-image">
 					<img
-						src="https://images.pexels.com/photos/259915/pexels-photo-259915.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+						src="https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg"
 						alt="Image"
 						class="w-full h-48 object-cover rounded-t-lg"
 					/>
