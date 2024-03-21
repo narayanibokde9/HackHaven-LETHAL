@@ -45,16 +45,23 @@
 5. Absence of a Feedback Mechanism for Residents to provide suggestions & for the Government Authorities to Access Performance & Address Shortcomings. 
 
 ## Features
-deWork offers the following features:
-- **Seamless Job Management**<br>
-  Streamlined job posting, application, and hiring processes, enabling companies to effortlessly post daily job listings while allowing blue-collar workers to apply for suitable jobs. Fair Proximity-Based Workforce Allocaton.
-- **Automated Payments**<br>
-  Ensures timely and transparent transactions between companies and workers. By automatically transferring payments to workers' wallets based on hours worked, the system mitigates the risk of delayed or withheld wages, thereby safeguarding workers' financial interests and reducing the potential for exploitation.
-- **Incentive System**<br>
-  Rewards blue-collar workers with NFTs based on their working hours. These NFTs can be redeemed for social security benefits.
+issueDAO offers the following features:
+- **Decentralized Governance and Issue Resolution**<br>
+  The DAO operates on a decentralized governance model where decisions are made collectively by its members.
+Members can submit grievances, vote on issues, and provide feedback on government actions through transparent and immutable smart contracts deployed on a blockchain platform.
+- **Token-Based Incentives and Penalties**<br>
+  Active participation in voting, providing feedback, and addressing grievances is incentivized through token rewards.
+Members receive tokens for their contributions, encouraging engagement and involvement in DAO activities.
+Conversely, lack of participation in voting or failure to address grievances results in penalties, ensuring accountability and encouraging responsible governance.
+- **Transparent and Immutable Database**<br>
+  All grievances, updates, feedback, resolutions, and token transactions are recorded and stored in a decentralized database (Polybase).
+The database ensures transparency, immutability, and accessibility to all members, facilitating trust and accountability within the DAO ecosystem.
+Members can track the progress of grievances, view government actions and updates, and participate in the decision-making process with confidence in the integrity of the system.
+- **Push Protocol for Community Discussion on Issues**<br>
+  Members receive instant alerts on new grievances, government updates, and feedback, fostering timely engagement and participation.Facilitates prompt communication and feedback, expediting issue resolution and fostering effective governance.
 
 ## Working
-The DApp involves two primary stakeholders: blue-collar workers and companies.
+The DApp involves two primary stakeholders: residents and government employees. Both have to verify themselves by connecting their wallet.
 
 1. **DAO Membership**<br>
     Users can join the DAO by staking a certain amount of tokens and purchasing non-fungible tokens (NFTs) as part of the membership process.
