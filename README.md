@@ -72,38 +72,45 @@ The DApp involves two primary stakeholders: blue-collar workers and companies.
    Workers are incentivized through a reward system where they earn non-fungible tokens (NFTs) based on the number of hours worked which can redeemed to leverage social security.
   
 ### Workflow of the website
-<img src="https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/3cfbd6af-4c31-42c9-a365-3b5eb9433ca8">
+![Blank diagram (1)](https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/c9242b90-22ae-4460-b2ff-62ac53d7bfd5)
 
 ## Screenshots
 #### Home page
-![1](https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/9fa86b4a-5ded-4ab0-8395-33410340e34a)
+<img width="960" alt="Screenshot 2024-03-21 225150" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/5b739076-ceb9-4c2a-8ddd-2d9a46c4a0be">
+
 #### Connected wallet
-<img src="https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/5361fcc3-e09d-4e11-89e8-87c0c4fdc53e">
+<img width="960" alt="Screenshot 2024-03-21 225823" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/0efd815c-3d70-44c1-be8e-24207c0810cd">
 
 #### Verify as Worker/Company
-![2](https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/bbb6c7a6-c402-4b24-a2e1-e8aa8297ef90)
+<img width="959" alt="Screenshot 2024-03-21 225914" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/8e8e9210-b204-4757-a322-7d9ed0574fce">
+
 #### Post new job as a Company
-![3](https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/50799198-b93f-4f0b-9c33-1d67a7695b6c)
+<img width="960" alt="Screenshot 2024-03-21 230046" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/ca61f33c-3e7c-45b8-b256-c860d6f65c79">
+
 #### Check job listing as Worker
-![4](https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/f2b9ec59-6d41-425b-b484-4efadabfa9a4)
+<img width="960" alt="Screenshot 2024-03-21 230305" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/05d8ca05-b273-4467-8094-1792a6a9bd14">
+
 #### Apply for a job as a Worker
-<img src="https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/d3eea936-5d7c-4f40-86cc-7b8c94e90439">
+<img width="960" alt="Screenshot 2024-03-21 230326" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/676e05a6-6ff9-4348-832d-059bf5816c8f">
 
 #### Check all of your posted Jobs as a Company
-![5](https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/3753f951-c3ea-410f-a25e-7b2f134702d9)
+<img width="960" alt="Screenshot 2024-03-21 231502" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/87088821-e556-438e-808e-33a1496b780e">
+
 #### Check job applications on a job posting | Stake MATIC to hire employee
 
-<img src="https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/e7f335ba-2a7c-4323-91da-91ed7bb1c941">
+<img width="960" alt="Screenshot 2024-03-21 232117" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/bc2fcf68-fb8b-48b0-b0b9-5c177128aebd">
 
 #### Take attendance as Company (Show QR Codes to workers on-site)
-![8](https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/2362d787-8dd6-4277-bc9d-b86e0f96ee5b)
+<img width="960" alt="Screenshot 2024-03-21 232117" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/b4741ce3-2d2f-40a3-851b-e8e3744a1c49">
+
 #### Check in as Worker
-![10](https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/34c35fda-293c-416a-a8b5-55e1fb2dd304)
+<img width="960" alt="Screenshot 2024-03-21 232136" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/a1273e06-5bdc-41c3-b7d2-dc94b436eda5">
+
 #### Checkout and get automatic payment on the basis of the number of hours worked 
-<img width="960" alt="image" src="https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/910d2e60-fd2d-4d17-aca7-8509d44c002b">
+<img width="960" alt="Screenshot 2024-03-21 232625" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/22e9d445-5afe-454a-bf80-e9428a1598cb">
 
 #### Mint NFTs and Redeem as worker
-![12](https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/dd4973f8-e90c-4027-9e6e-976607388b79)
+<img width="468" alt="Screenshot 2024-03-21 232948" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/75aa355c-5671-4962-874e-206887ccacbe">
 
 ## 🤖Tech-Stack
 
