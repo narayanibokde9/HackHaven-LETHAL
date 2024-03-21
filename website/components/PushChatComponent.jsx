@@ -6,8 +6,7 @@
 // } from "@pushprotocol/uiweb";
 
 export function PushChatComponent({ chat, signer, account }) {
-	console.log(chat);
-	console.log("hello");
+	console.log("hello1", chat);
 	return (
 		<>
 			<div style={{ height: "75vh", margin: "20px auto" }}>

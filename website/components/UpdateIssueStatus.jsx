@@ -3,9 +3,11 @@ import React from "react";
 import { BiUpvote } from "react-icons/bi";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 import { GrStatusUnknown } from "react-icons/gr";
+import updates from "../app/(resident)/issuelist/update.json";
 
 const UpdateIssueStatus = ({ title, message, images, upvotes, id, tags }) => {
-	console.log(images);
+	const filteredUpdates = updates.filter((update) => update.issueId === id);
+	console.log(filteredUpdates);
 	return (
 		<div className="grid items-stretch grid-cols-2 gap-4 place-content-evenly">
 			<div className="col-span-2 self-stretch md:col-span-1 border">
@@ -63,26 +65,42 @@ const UpdateIssueStatus = ({ title, message, images, upvotes, id, tags }) => {
 			<div className="col-span-2 md:col-span-1 border p-8 bg-white shadow-xl">
 				<h1 className="text-xl font-semibold text-gray-800">Current Status</h1>
 				<ul className="timeline timeline-vertical lg:timeline-horizontal">
-					<TimelineItem year="1984" event="First Macintosh computer" />
-					<TimelineItem year="1998" event="iMac" />
-					<TimelineItem year="2001" event="iPod" />
-					<TimelineItem year="2007" event="iPhone" />
-					<TimelineItem year="2015" event="Apple Watch" />
+					{filteredUpdates.map((issueUpdate) => (
+						<TimelineItem key={issueUpdate.id} update={issueUpdate} />
+					))}
 				</ul>
 			</div>
-			<div className="col-span-2 md:col-span-1 border p-8 bg-white shadow-xl">
-				<div className="flex flex-col gap-4 w-52">
-					<div className="skeleton h-32 w-full"></div>
-					<div className="skeleton h-4 w-28"></div>
-					<div className="skeleton h-4 w-full"></div>
-					<div className="skeleton h-4 w-full"></div>
-				</div>
+
+			<div className="col-span-2 md:col-span-1 border bg-white shadow-xl">
+				<form className="card-body">
+					<div className="flex flex-col gap-4">
+						<h1 className="font-bold text-4xl text-center text-gray-800">
+							Update Status
+						</h1>
+						<label className="input input-bordered flex items-center gap-2">
+							Update Title
+							<input type="text" className="grow" placeholder="Update No. X" />
+						</label>
+						<label className="input input-bordered flex items-center gap-2">
+							Update Details
+							<input type="text" className="grow" placeholder="abc xyz" />
+						</label>
+						<div className="form-control mt-6">
+							<button className="btn btn-info">Update</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	);
 };
 
-const TimelineItem = ({ year, event }) => {
+export const TimelineItem = ({ update }) => {
+	// Extracting year and event from the update data
+	const year = new Date(update.time).toLocaleString();
+	const event = update.title;
+
+	console.log(update);
 	return (
 		<li>
 			<div className="timeline-start">{year}</div>
@@ -100,7 +118,16 @@ const TimelineItem = ({ year, event }) => {
 					/>
 				</svg>
 			</div>
-			<div className="timeline-end timeline-box">{event}</div>
+			<div
+				className="timeline-end timeline-box tooltip tooltip-left md:tooltip-bottom bg-blue-200"
+				data-tip={update.message}
+			>
+				{event}
+			</div>
+			{/* <div className="tooltip" data-tip="hello">
+				<button className="btn">Hover me</button>
+			</div> */}
+			<hr />
 		</li>
 	);
 };

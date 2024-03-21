@@ -1,0 +1,29 @@
+.chat-history-container {
+    max-height: 60vh;
+    /* Adjust the height as per your preference */
+    overflow-y: auto;
+    /* Use 'auto' instead of 'scroll' for automatic scrollbar display */
+}
+
+/* WebKit (Chrome, Safari) */
+.chat-history-container::-webkit-scrollbar {
+    width: 8px;
+    /* Width of the scrollbar */
+}
+
+.chat-history-container::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+    /* Track color */
+}
+
+.chat-history-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    /* Thumb color */
+    border-radius: 10px;
+    /* Rounded corners for the thumb */
+}
+
+.chat-history-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+    /* Hover color */
+}

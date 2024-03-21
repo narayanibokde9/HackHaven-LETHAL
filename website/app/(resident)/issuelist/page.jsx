@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import IssueComponent from "@/Updat/IssueComponent";
+import IssueComponent from "@/components/IssueComponent";
 import data from "./data.json";
 import Link from "next/link";
 
