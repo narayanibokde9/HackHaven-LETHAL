@@ -1,9 +1,9 @@
-import {
-	ChatView,
-	ChatUIProvider,
-	darkChatTheme,
-	lightChatTheme,
-} from "@pushprotocol/uiweb";
+// import {
+// 	ChatView,
+// 	ChatUIProvider,
+// 	darkChatTheme,
+// 	lightChatTheme,
+// } from "@pushprotocol/uiweb";
 
 export function PushChatComponent({ chat, signer, account }) {
 	console.log(chat);
@@ -11,7 +11,7 @@ export function PushChatComponent({ chat, signer, account }) {
 	return (
 		<>
 			<div style={{ height: "75vh", margin: "20px auto" }}>
-				<ChatUIProvider signer={signer}>
+				{/* <ChatUIProvider signer={signer}>
 					<ChatView
 						chatId={chat.chatId}
 						limit={10}
@@ -19,7 +19,7 @@ export function PushChatComponent({ chat, signer, account }) {
 						autoConnect={false}
 						verificationFailModalPosition="RELATIVE"
 					/>
-				</ChatUIProvider>
+				</ChatUIProvider> */}
 			</div>
 		</>
 	);
