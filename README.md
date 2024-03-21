@@ -56,20 +56,26 @@ deWork offers the following features:
 ## Working
 The DApp involves two primary stakeholders: blue-collar workers and companies.
 
-1. **Job Posting and Application**<br>
-    The DApp facilitates daily job postings by companies, specifying job details and locations. Blue-collar workers, along with companies, connect their wallets to the portal. Companies post jobs with location and hourly salary. Workers browse available job listings and apply for jobs.
+1. **DAO Membership**<br>
+    Users can join the DAO by staking a certain amount of tokens and purchasing non-fungible tokens (NFTs) as part of the membership process.
 
-2. **Hiring Process**<br>
-   Workers are hired based on proximity to the job location and the number of vacancies available in First Come First Serve (FCFS) fashion. 
+2. **Voting Power**<br>
+   Each member's voting power is determined by the number of tokens they hold. More tokens result in greater voting power during decision-making processes.
+   
+4. **Grievance Mechanism**<br>
+    Members can post grievances or vote on grievances posted by others. Grievances could include complaints, suggestions for improvements, or requests for action on certain issues.
 
-3. **Staking and Attendance Management**<br>
-    Before hiring workers, companies stake an amount in Ether to demonstrate their commitment. Hired workers use a QR code-based check-in and check-out system to mark attendance, providing accurate tracking of work hours.
+5. **Issue Resolution**<br>
+   Grievances that receive more than 30% of votes are converted into official issues that the DAO government must address. 
 
-4. **Automated Payment Processing**<br>
-   Upon check-out, payments are automatically transferred from the company's wallet to the worker's wallet based on the number of hours worked. 
+6. **Government Actions**<br>
+   The DAO government, consisting of elected or appointed representatives, is responsible for addressing the issues raised by members. They must provide updates on the progress and resolution of each issue.
+Members can provide feedback on the government's updates.
+Issues marked as resolved require 75% upvotes from members to confirm resolution.
 
-5. **Reward System with NFTs**<br>
-   Workers are incentivized through a reward system where they earn non-fungible tokens (NFTs) based on the number of hours worked which can redeemed to leverage social security.
+7. **Token-Based Incentives**<br>
+   Members receive token-based rewards for active participation in voting and providing feedback.
+Penalties are imposed on members for lack of participation in voting. Additionally, penalties are applied to the government for failing to address issues promptly.
   
 ### Workflow of the website
 ![Blank diagram (1)](https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/c9242b90-22ae-4460-b2ff-62ac53d7bfd5)
