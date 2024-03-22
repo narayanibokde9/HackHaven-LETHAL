@@ -91,38 +91,33 @@ Penalties are imposed on members for lack of participation in voting. Additional
 #### Home page
 <img width="960" alt="Screenshot 2024-03-21 225150" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/5b739076-ceb9-4c2a-8ddd-2d9a46c4a0be">
 
-#### Connected wallet
+#### Verify as a Resident/Govt Employee
 <img width="960" alt="Screenshot 2024-03-21 225823" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/0efd815c-3d70-44c1-be8e-24207c0810cd">
 
-#### Verify as Worker/Company
+#### Successful transaction as well as storage in Polybase
 <img width="959" alt="Screenshot 2024-03-21 225914" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/8e8e9210-b204-4757-a322-7d9ed0574fce">
 
-#### Post new job as a Company
+#### Profile page
 <img width="960" alt="Screenshot 2024-03-21 230046" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/ca61f33c-3e7c-45b8-b256-c860d6f65c79">
 
-#### Check job listing as Worker
+#### Raise an issue
 <img width="960" alt="Screenshot 2024-03-21 230305" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/05d8ca05-b273-4467-8094-1792a6a9bd14">
-
-#### Apply for a job as a Worker
 <img width="960" alt="Screenshot 2024-03-21 230326" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/676e05a6-6ff9-4348-832d-059bf5816c8f">
 
-#### Check all of your posted Jobs as a Company
+#### List of all the issues
 <img width="960" alt="Screenshot 2024-03-21 231502" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/87088821-e556-438e-808e-33a1496b780e">
 
-#### Check job applications on a job posting | Stake MATIC to hire employee
+#### Update status of an issue (Only by an employee)
 
-<img width="960" alt="Screenshot 2024-03-21 232117" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/bc2fcf68-fb8b-48b0-b0b9-5c177128aebd">
-
-#### Take attendance as Company (Show QR Codes to workers on-site)
 <img width="960" alt="Screenshot 2024-03-21 232117" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/b4741ce3-2d2f-40a3-851b-e8e3744a1c49">
 
-#### Check in as Worker
+#### Status and details page of an issue
 <img width="960" alt="Screenshot 2024-03-21 232136" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/a1273e06-5bdc-41c3-b7d2-dc94b436eda5">
 
-#### Checkout and get automatic payment on the basis of the number of hours worked 
+#### Instant notifications and group chat for discussion
 <img width="960" alt="Screenshot 2024-03-21 232625" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/22e9d445-5afe-454a-bf80-e9428a1598cb">
 
-#### Mint NFTs and Redeem as worker
+#### Real time chat
 <img width="468" alt="Screenshot 2024-03-21 232948" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/75aa355c-5671-4962-874e-206887ccacbe">
 
 ## 🤖Tech-Stack
@@ -134,6 +129,11 @@ Penalties are imposed on members for lack of participation in voting. Additional
 - <img src="https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/a83962af-5df0-485b-8bde-00c015bcc75b" width="85" height="20">
 - <img src="https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/be1280cb-757a-414d-b546-8da89a2f4318" width="50" height="50">
 - <img width="85" alt="image" src="https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/1e249feb-369a-4ec6-9cd2-bb9d0c52c57e">
+- <img width="50" alt="image" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/047c3a79-bff3-4161-8030-af283f440791">
+- <img width="123" alt="image" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/54e48b8a-13c4-490a-9b71-6bfd339f69cb">
+- <img width="85" alt="image" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/17ad407c-4372-4638-89cd-32dac26a6653">
+- <img width="50" alt="image" src="https://github.com/narayanibokde9/HackHaven-LETHAL/assets/116104916/0c793733-8789-40cc-98a2-c6876fe20acc">
+
 
 
 ### Blockchain
