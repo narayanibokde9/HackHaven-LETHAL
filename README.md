@@ -142,14 +142,6 @@ Penalties are imposed on members for lack of participation in voting. Additional
 - <img width="100" alt="image" src="https://github.com/ShauryaSwarup/L-ETH-AL/assets/116104916/3e2a2b68-3040-48dc-aadf-7d46b1fa99b3">
 - ![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)
 
-
-## Links
-- [Demo Video](https://youtu.be/ofJUteFl3uY?si=lWQQn4JZncpA1CYU)
-- [GitHub Repository](https://github.com/ShauryaSwarup/L-ETH-AL)
-- [Deployed Contract on Polygon](https://mumbai.polygonscan.com/address/0x594aF2B9fD4e6339BE43f0848Ddb139247680a00)
-- [Deployed NFT Contract on Polygon](https://mumbai.polygonscan.com/address/0x69e3c24fcf84a318Ab78d031AF703b4908b1aD62)
-- [Devfolio Submission]()
-
 ## 🔮Future Scope
 - Location Based Attendance: If worker within site radius, then mark as present.
 - Add more NFTs for higher Social Security.
@@ -158,7 +150,7 @@ Penalties are imposed on members for lack of participation in voting. Additional
 ## 🛠Project Setup
 1. Clone the repository
 ```
-https://github.com/ShauryaSwarup/l-eth-al.git
+https://github.com/ShauryaSwarup/hackhaven-lethal.git
 ```
 To start the frontend user interface
 ```
